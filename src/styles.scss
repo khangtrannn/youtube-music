@@ -1,1 +1,274 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: hsl(0, 0%, 98%);
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  height: 24px;
+  padding: 32px 0 8px;
+  > img {
+    height: 100%;
+  }
+}
+
+.wrapper {
+  padding: 4rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 210px);
+  grid-row-gap: 0px;
+  grid-column-gap: 4px;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+.clip, .playlist {
+  height: 219px;
+  cursor: pointer;
+  text-decoration: none;
+  section.preview-container {
+    width: 100%;
+    position: relative;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .overlay-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .play-icon {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 0.5s;
+    svg {
+      fill: #ffffff;
+    }
+  }
+
+  &.show-play-icon {
+    .play-icon {
+      opacity: .8;
+    }
+  }
+
+  &:hover {
+    .watch-later-button, .more-button {
+      opacity: 1 !important;
+    }
+  }
+
+  &.hoverable {
+    .preview {
+      opacity: 1 !important;
+    }
+  }
+
+  .preview {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity .5s;
+  }
+
+  .time-status {
+    background-color: rgba(0, 0, 0, .8);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 4px;
+    color: #ffffff;
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 11px;
+    display: inline-block;
+    padding: 1px 4px;
+    border-radius: 2px;
+  }
+
+  .watch-later-button {
+    transition: opacity .5s;
+    border-radius: 2px;
+    opacity: 0;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    background-color: hsl(0, 0,0);
+    border: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 4px;
+    padding: 2px;
+    svg {
+      fill: hsl(0, 0%, 100%);
+    }
+  }
+
+
+  .content-container {
+    font-family: Roboto;
+    padding-top: 10px;
+    padding-right: 24px;
+    position: relative;
+    h3 {
+      display: -webkit-box;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 500;
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+      margin-bottom: 8px;
+      color: #0a0a0a;
+    }
+
+    footer {
+      .channel-name {
+        margin: 0;
+        font-size: 12px;
+        font-family: Roboto;
+        color: #606060;
+        display: block;
+        width: 100%;
+        &:hover {
+          color: hsla(0, 0%, 7%, 0.8);
+        }
+      }
+      .meta {
+        p {
+          font-size: 12px;
+          display: inline-block;
+          margin: 0;
+          color: #606060;
+          &:first-child:after {
+            display: inline-block;
+            content: '•';
+            margin: 0 4px;
+          }
+        }
+      }
+    }
+    .more-button {
+      opacity: 0;
+      width: 23px;
+      height: 23px;
+      border: 0;
+      padding: 0;
+      position: absolute;
+      top: 8px;
+      right: 0;
+      cursor: pointer;
+      svg {
+        fill: #909090;
+      }
+      &:hover {
+        svg {
+          fill: #606060;
+        }
+      }
+    }
+  }
+}
+
+.playlist {
+  .view-fill-playlist {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+    color: #606060;
+    &:hover {
+      color: rgb(10, 10, 10);
+    }
+  }
+  &:hover {
+    .overlay-playlist {
+      opacity: 1;
+    }
+  }
+
+  .overlay-playlist {
+    opacity: 0;
+    transition: opacity 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: hsla(0, 0%, 6.7%, .8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .overlay-side-panel {
+    width: 92px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: hsla(0, 0%, 6.7%, .8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .playlist-count {
+      font-family: Roboto;
+      font-weight: 400;
+      font-size: 16px;
+      color: rgba(255, 255, 255, .8);
+      margin: 0;
+      margin: 0 0 4px;
+    }
+
+    .playlist-icon {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      svg {
+        fill: rgba(255, 255, 255, .8);
+      }
+    }
+  }
+
+  .playall-text {
+     color: rgba(255, 255, 255, .8);
+     font-family: Roboto;
+     font-weight: 500;
+     font-size: 13px;
+     text-transform: uppercase;
+  }
+
+  .playall-icon {
+    width: 23px;
+    height: 23px;
+    display: inline-block;
+    svg {
+      fill: rgba(255, 255, 255, .8);
+    }
+  }
+}
