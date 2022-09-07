@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.videoService.getAllVideos().subscribe((response) => {
       console.log(response);
-      this.videos = response.filter((response) => !!response.title);
+      this.videos = response.filter((response) => !!response.resourceId?.videoId);
       this.videoId = this.videos[0].resourceId.videoId;
       this.videoTitle = this.videos[0].title;
     });
