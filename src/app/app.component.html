@@ -1,8 +1,14 @@
 <div style="display: flex; justify-content: center; gap: 40px;">
   <div style="max-height: 100vh; overflow-y: scroll;" class="container">
-    <app-card style="display: block; margin-bottom: 200px;" *ngFor="let video of videos" [title]="video.title" [channel]="video.channelTitle" [thumbnail]="video.thumbnails.high.url"></app-card>
+    <app-card style="display: block; margin-bottom: 200px;" *ngFor="let video of videos"
+      [title]="video.title" [channel]="video.channelTitle" [thumbnail]="'/api/proxy?url=' + video.thumbnails.high.url"
+      [videoId]="video.resourceId.videoId"
+      (videoChanged)="onVideoChanged($event)"
+    ></app-card>
   </div>
 
-  <!-- <audio style="padding-top: 4rem;" src="http://129.150.38.34:1234/youtube.com/watch?v=3s1r_g_jXNs" autoplay controls preload="metadata"></audio> -->
-  <audio style="padding-top: 4rem;" src="/youtube.com/watch?v=3s1r_g_jXNs" autoplay controls preload="metadata"></audio>
+  <div style="padding-top: 4rem; display: flex; align-items: center; flex-direction: column;" >
+    <b style="display: block; margin-bottom: 1rem;">{{ videoTitle }}</b>
+    <audio [src]="'/youtube.com/watch?v=' + videoId" autoplay controls preload="metadata"></audio>
+  </div>
 </div>

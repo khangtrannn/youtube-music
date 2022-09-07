@@ -1,4 +1,4 @@
-import { YoutubeService } from './services/youtube.service';
+import { VideoService } from './services/video.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { filter, map, switchMap } from 'rxjs';
@@ -9,27 +9,26 @@ import { filter, map, switchMap } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'music';
-
+  title = 'KTMusic';
   videos!: any[];
+  videoId!: string;
+  videoTitle!: string;
 
   constructor(
-    private route: ActivatedRoute,
-    private youtubeService: YoutubeService
+    private videoService: VideoService
   ) {}
 
-  ngOnInit(): void {
-    this.route.queryParamMap
-      .pipe(
-        map((params: ParamMap) => params.get('keyword')),
-        switchMap((keyword) =>
-          this.youtubeService.getVideosByKeyWord(keyword as string)
-        )
-      )
-      .subscribe((response) => {
-        this.videos = response.map((r) => r.snippet);
+  onVideoChanged(data: any): void {
+    const dataJson = JSON.parse(data);
+    this.videoId = dataJson.videoId;
+    this.videoTitle = dataJson.videoTitle;
+  }
 
-        console.log(this.videos);
-      });
+  ngOnInit(): void {
+    this.videoService.getAllVideos().subscribe((data) => {
+      this.videos = data;
+      this.videoId = this.videos[0].resourceId.videoId;
+      this.videoTitle = this.videos[0].title;
+    });
   }
 }

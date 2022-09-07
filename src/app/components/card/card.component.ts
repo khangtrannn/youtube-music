@@ -1,18 +1,19 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() title!: string;
   @Input() channel!: string;
   @Input() thumbnail!: string;
+  @Input() videoId!: string;
 
-  constructor() { }
+  @Output() videoChanged = new EventEmitter<string>();
 
-  ngOnInit() {
+  onClick(): void {
+    this.videoChanged.emit(JSON.stringify({ videoId: this.videoId, videoTitle: this.title }));
   }
-
 }
