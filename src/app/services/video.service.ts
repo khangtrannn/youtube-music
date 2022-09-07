@@ -9,6 +9,6 @@ export class VideoService {
   constructor(private http: HttpClient) {}
 
   getAllVideos(): Observable<any[]> {
-    return this.http.get<any>('http://localhost:1235/api/videos');
+    return this.http.get<any>('/api/videos');
   }
 }
