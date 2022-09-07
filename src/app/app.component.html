@@ -1,7 +1,7 @@
 <div style="display: flex; justify-content: center; gap: 40px;">
   <div style="max-height: 100vh; overflow-y: scroll;" class="container">
     <app-card style="display: block; margin-bottom: 200px;" *ngFor="let video of videos"
-      [title]="video.title" [channel]="video.channelTitle" [thumbnail]="'/api/proxy?url=' + video.thumbnails.high.url"
+      [title]="video.title" [channel]="video.channelTitle" [thumbnail]="'/api/proxy?url=' + (video.thumbnails.high?.url || video.thumbnails.medium?.url)"
       [videoId]="video.resourceId.videoId"
       (videoChanged)="onVideoChanged($event)"
     ></app-card>
