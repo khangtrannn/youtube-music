@@ -10,7 +10,7 @@
   <div style="padding-top: 4rem; display: flex; align-items: center; flex-direction: column;" >
     <div style="margin-bottom: 50px; width: 100%;">
       <div style="display: flex; justify-content: center; width: 100%;">
-        <input [(ngModel)]="keyword" style="width: 100%;" type="text" placeholder="Enter keyword">
+        <input (keyup.enter)="onSearch()" [(ngModel)]="keyword" style="width: 100%;" type="text" placeholder="Enter keyword">
         <button (click)="onSearch()">Search</button>
       </div>
       <p *ngIf="isSearching">Searching...</p>
