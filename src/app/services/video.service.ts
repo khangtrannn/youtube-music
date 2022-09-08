@@ -11,4 +11,8 @@ export class VideoService {
   getAllVideos(): Observable<any[]> {
     return this.http.get<any>('/api/videos');
   }
+
+  searchVideos(keyword: string): Observable<any[]> {
+    return this.http.get<any>('/api/videos/search?keyword=' + keyword);
+  }
 }

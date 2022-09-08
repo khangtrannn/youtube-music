@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   videoId!: string;
   videoTitle!: string;
 
+  keyword!: string;
+  isSearching = false;
+
   constructor(
     private videoService: VideoService
   ) {}
@@ -31,5 +34,14 @@ export class AppComponent implements OnInit {
       this.videoId = this.videos[0].resourceId.videoId;
       this.videoTitle = this.videos[0].title;
     });
+  }
+
+  onSearch(): void {
+    this.isSearching = true;
+    this.videoService.searchVideos(this.keyword).subscribe((response) => {
+      console.log(response);
+      this.isSearching = false;
+      this.videos = response;
+    })
   }
 }
