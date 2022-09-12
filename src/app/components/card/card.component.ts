@@ -5,15 +5,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent {
-  @Input() title!: string;
-  @Input() channel!: string;
-  @Input() thumbnail!: string;
-  @Input() videoId!: string;
+export class CardComponent implements OnInit {
+  @Input() video: any;
+
+  title!: string;
+  channel!: string;
+  thumbnail!: string;
+  videoId!: string;
 
   @Output() videoChanged = new EventEmitter<string>();
 
+  ngOnInit(): void {
+    this.title = this.video.title;
+    this.channel = this.video.channel;
+    this.thumbnail = (this.video.thumbnails.maxres || this.video.thumbnails.standard || this.video.thumbnails.high)?.url;
+  }
+
   onClick(): void {
-    this.videoChanged.emit(JSON.stringify({ videoId: this.videoId, videoTitle: this.title }));
+    this.videoChanged.emit(JSON.stringify(this.video));
   }
 }

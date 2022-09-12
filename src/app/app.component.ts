@@ -1,7 +1,5 @@
 import { VideoService } from './services/video.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,16 +21,20 @@ export class AppComponent implements OnInit {
 
   onVideoChanged(data: any): void {
     const dataJson = JSON.parse(data);
-    this.videoId = dataJson.videoId;
+    this.videoId = dataJson.resourceId.videoId;
     this.videoTitle = dataJson.videoTitle;
+
+    // const thumbnail = (dataJson.thumbnails.maxres || dataJson.thumbnails.standard || dataJson.thumbnails.high)?.url;
+    // document.getElementsByTagName('body')[0].style.background = `url(${thumbnail})`;
   }
 
   ngOnInit(): void {
     this.videoService.getAllVideos().subscribe((response) => {
-      console.log(response);
       this.videos = response.filter((response) => !!response.resourceId?.videoId);
-      this.videoId = this.videos[0].resourceId.videoId;
-      this.videoTitle = this.videos[0].title;
+
+      if (this.videos.length) {
+        this.onVideoChanged(this.videos[0].toString());
+      }
     });
   }
 
