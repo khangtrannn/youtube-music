@@ -12,13 +12,15 @@ export class CardComponent implements OnInit {
   channel!: string;
   thumbnail!: string;
   videoId!: string;
+  duration!: string;
 
   @Output() videoChanged = new EventEmitter<string>();
 
   ngOnInit(): void {
     this.title = this.video.title;
-    this.channel = this.video.channel;
-    this.thumbnail = (this.video.thumbnails.maxres || this.video.thumbnails.standard || this.video.thumbnails.high)?.url;
+    this.channel = this.video.channelTitle;
+    this.duration = this.video.duration;
+    this.thumbnail = this.video.thumbnail;
   }
 
   onClick(): void {

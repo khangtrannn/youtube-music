@@ -1,11 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import './typography.scss';
 
 body {
   margin: 0;
   padding: 0;
   background-color: hsl(0, 0%, 98%);
   min-height: 100vh;
+  overflow: hidden;
 }
 
 header {
@@ -96,7 +98,7 @@ a {
     background-color: rgba(0, 0, 0, .8);
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 5px;
     margin: 4px;
     color: #ffffff;
     font-family: Roboto;
@@ -134,18 +136,6 @@ a {
     padding-top: 10px;
     padding-right: 24px;
     position: relative;
-    h3 {
-      display: -webkit-box;
-      margin: 0;
-      font-size: 14px;
-      font-weight: 500;
-      -webkit-box-orient: vertical;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 2;
-      overflow: hidden;
-      margin-bottom: 8px;
-      color: #0a0a0a;
-    }
 
     footer {
       .channel-name {

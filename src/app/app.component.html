@@ -1,6 +1,11 @@
-<div style="display: flex; justify-content: center; gap: 40px;">
+<div class="background">
+  <div class="backdrop"></div>
+  <img #background class="background-image" [src]="'/assets/images/music-background.jpeg'" alt="Music Background">
+</div>
+
+<div class="wrapper" style="display: flex; justify-content: center; gap: 40px;">
   <div style="max-height: 100vh; overflow-y: scroll;" class="container">
-    <app-card style="display: block; margin-bottom: 200px;" *ngFor="let video of videos"
+    <app-card style="display: block; margin-bottom: 120px;" *ngFor="let video of videos"
       [video]="video"
       (videoChanged)="onVideoChanged($event)"
     ></app-card>
@@ -12,10 +17,10 @@
         <input (keyup.enter)="onSearch()" [(ngModel)]="keyword" style="width: 100%;" type="text" placeholder="Enter keyword">
         <button (click)="onSearch()">Search</button>
       </div>
-      <p *ngIf="isSearching">Searching...</p>
+      <p class="apple-text" *ngIf="isSearching">Searching...</p>
     </div>
 
     <b style="display: block; margin-bottom: 1rem;">{{ videoTitle }}</b>
-    <audio *ngIf="videoId" [src]="'/api/stream/' + videoId" autoplay controls preload="metadata"></audio>
+    <audio *ngIf="videoId" #audio [volume]="0.4" [src]="'/api/stream/' + videoId" autoplay controls preload="metadata"></audio>
   </div>
 </div>
