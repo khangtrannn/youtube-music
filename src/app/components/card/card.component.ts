@@ -13,6 +13,8 @@ export class CardComponent implements OnInit {
   thumbnail!: string;
   videoId!: string;
   duration!: string;
+  publishedTime!: string;
+  view!: string;
 
   @Output() videoChanged = new EventEmitter<string>();
 
@@ -21,6 +23,8 @@ export class CardComponent implements OnInit {
     this.channel = this.video.channelTitle;
     this.duration = this.video.duration;
     this.thumbnail = this.video.thumbnail;
+    this.publishedTime = this.video.publishedTime;
+    this.view = this.video.view;
   }
 
   onClick(): void {

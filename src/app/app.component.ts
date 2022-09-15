@@ -28,22 +28,22 @@ export class AppComponent implements OnInit {
 
   onVideoChanged(data: any): void {
     const dataJson = JSON.parse(data);
-    this.videoId = dataJson.resourceId.videoId;
+    this.videoId = dataJson.videoId;
     this.videoTitle = dataJson.videoTitle;
     this.background = dataJson.thumbnail;
     this.backgroundRef.nativeElement.src = this.background;
   }
 
   ngOnInit(): void {
-    this.videoService.getAllVideos().subscribe((response) => {
-      this.videos = response.filter(
-        (response) => !!response.resourceId?.videoId
-      );
+    // this.videoService.getAllVideos().subscribe((response) => {
+    //   this.videos = response.filter(
+    //     (response) => !!response.resourceId?.videoId
+    //   );
 
-      if (this.videos.length) {
-        this.onVideoChanged(this.videos[0].toString());
-      }
-    });
+    //   if (this.videos.length) {
+    //     this.onVideoChanged(this.videos[0].toString());
+    //   }
+    // });
   }
 
   onSearch(): void {

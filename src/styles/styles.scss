@@ -1,11 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500');
+@import './tailwind.scss';
 @import './typography.scss';
 
 body {
   margin: 0;
   padding: 0;
-  background-color: hsl(0, 0%, 98%);
   min-height: 100vh;
   overflow: hidden;
 }
@@ -118,16 +118,13 @@ a {
     display: inline-flex;
     align-items: center;
     padding: 0;
-    background-color: hsl(0, 0,0);
     border: 0;
     position: absolute;
     top: 0;
     right: 0;
     margin: 4px;
     padding: 2px;
-    svg {
-      fill: hsl(0, 0%, 100%);
-    }
+
   }
 
 
@@ -145,10 +142,8 @@ a {
         color: #606060;
         display: block;
         width: 100%;
-        &:hover {
-          color: hsla(0, 0%, 7%, 0.8);
-        }
       }
+
       .meta {
         p {
           font-size: 12px;
@@ -209,7 +204,6 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: hsla(0, 0%, 6.7%, .8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -221,7 +215,6 @@ a {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: hsla(0, 0%, 6.7%, .8);
     display: flex;
     flex-direction: column;
     justify-content: center;
