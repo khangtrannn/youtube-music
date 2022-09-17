@@ -8,5 +8,5 @@ import { Video } from 'src/app/models/video';
 })
 export class CardComponent {
   @Input() video!: Video;
-  @Output() touch = new EventEmitter<string>();
+  @Output() onTouch = new EventEmitter<string>();
 }

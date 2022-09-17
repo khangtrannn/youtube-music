@@ -1,22 +1,16 @@
-<div (click)="touch.emit(video.id)">
-  <div class="clip">
-    <section class="preview-container">
-      <img [src]="video.thumbnail" />
-      <span class="time-status">{{ video.duration }}</span>
-    </section>
+<div class="video" (click)="onTouch.emit(video.id)">
+  <div class="thumbnail-container">
+    <img [src]="video.thumbnail" />
+    <span class="time-status">{{ video.duration }}</span>
+  </div>
 
-    <section class="content-container">
-      <h3 class="apple-text" [title]="video.title">{{ video.title }}</h3>
-      <footer>
-        <div class="meta">
-          <span></span>
-          <p>{{ video.channel.title }}</p>
-        </div>
-        <div class="meta">
-          <p>{{ video.view }}</p>
-          <p>{{ video.publishedTime }}</p>
-        </div>
-      </footer>
-    </section>
+  <div class="flex gap-2 mt-3">
+    <img class="max-h-9 rounded-[50%]" [src]="video.channel.thumbnail" alt="Channel thumbnail">
+    <div class="meta">
+      <span class="apple-text mb-3 inline-block" [title]="video.title">{{ video.title }}</span>
+      <span class="text !block hover:!text-[#f5f5f7] hover:!opacity-[0.8]" >{{ video.channel.title }}</span>
+      <span class="text dot" >{{ video.view }}</span>
+      <span class="text">{{ video.publishedTime }}</span>
+    </div>
   </div>
 </div>
