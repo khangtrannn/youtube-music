@@ -1,3 +1,4 @@
+import { ProxyImagePipe } from './pipes/proxy-image.pipe';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -5,7 +6,10 @@ import { VideoCardComponent } from './components/video-card/video-card.component
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatIconModule } from '@angular/material/icon';
 
-const declarations = [VideoCardComponent];
+const declarations = [
+  VideoCardComponent,
+  ProxyImagePipe,
+];
 
 @NgModule({
   imports: [
