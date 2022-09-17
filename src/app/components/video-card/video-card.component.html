@@ -1,20 +1,20 @@
-<div (click)="onClick()" style="max-width: 360px; margin: 0 auto">
+<div (click)="touch.emit(video.id)">
   <div class="clip">
     <section class="preview-container">
-      <img [src]="thumbnail" />
-      <span class="time-status">{{ duration }}</span>
+      <img [src]="video.thumbnail" />
+      <span class="time-status">{{ video.duration }}</span>
     </section>
 
     <section class="content-container">
-      <h3 class="apple-text" [title]="title">{{ title }}</h3>
+      <h3 class="apple-text" [title]="video.title">{{ video.title }}</h3>
       <footer>
         <div class="meta">
           <span></span>
-          <p>{{ channel }}</p>
+          <p>{{ video.channel.title }}</p>
         </div>
         <div class="meta">
-          <p>{{ view }}</p>
-          <p>{{ publishedTime }}</p>
+          <p>{{ video.view }}</p>
+          <p>{{ video.publishedTime }}</p>
         </div>
       </footer>
     </section>
