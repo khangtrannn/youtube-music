@@ -34,24 +34,19 @@ export class AppComponent implements OnInit {
     this.backgroundRef.nativeElement.src = this.background;
   }
 
-  ngOnInit(): void {
-    // this.videoService.getAllVideos().subscribe((response) => {
-    //   this.videos = response.filter(
-    //     (response) => !!response.resourceId?.videoId
-    //   );
-
-    //   if (this.videos.length) {
-    //     this.onVideoChanged(this.videos[0].toString());
-    //   }
-    // });
-  }
+  ngOnInit(): void {}
 
   onSearch(): void {
     this.isSearching = true;
-    this.videoService.searchVideos(this.keyword).subscribe((response) => {
-      console.log(response);
+    this.videoService.searchVideo(this.keyword).subscribe((response) => {
       this.isSearching = false;
-      this.videos = response;
+      this.videos = response.videos;
+    });
+  }
+
+  onSearchScroll(): void {
+    this.videoService.searchVideoContinuation().subscribe((response) => {
+      this.videos.push(...response.videos);
     });
   }
 }
