@@ -22,7 +22,10 @@ export class SearchResultComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams
       .pipe(
-        tap(() => (this.isVideoLoad = true)),
+        tap(() => {
+          this.isVideoLoad = true;
+          this.numberOfSkeletons = 9;
+        }),
         switchMap((params) => this.videoService.searchVideo(params['keyword']))
       )
       .subscribe((videos) => {
@@ -32,7 +35,10 @@ export class SearchResultComponent implements OnInit {
   }
 
   onSearchScroll(): void {
+    this.isVideoLoad = true;
+    this.numberOfSkeletons = 6;
     this.videoService.searchVideoContinuation().subscribe((response) => {
+      this.isVideoLoad = false;
       this.videos.push(...response.videos);
     });
   }

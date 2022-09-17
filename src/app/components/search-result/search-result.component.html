@@ -8,6 +8,6 @@
 >
   <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
   <ng-container *ngIf="isVideoLoad">
-    <app-video-card *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
+    <app-video-card class="video-skeleton" *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
   </ng-container>
 </div>
