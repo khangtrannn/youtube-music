@@ -6,7 +6,7 @@ import { Video } from 'src/app/models/video';
   templateUrl: './video-card.component.html',
   styleUrls: ['./video-card.component.scss']
 })
-export class CardComponent {
+export class VideoCardComponent {
   @Input() video!: Video;
   @Output() onTouch = new EventEmitter<string>();
 }
