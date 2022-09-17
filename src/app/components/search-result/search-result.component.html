@@ -1,9 +1,4 @@
-<div *ngIf="isLoading" class="search-result-wrapper !overflow-hidden">
-  <app-video-card *ngFor="let video of [].constructor(9)"></app-video-card>
-</div>
-
 <div
-  *ngIf="!isLoading"
   infiniteScroll
   [infiniteScrollDistance]="4"
   [infiniteScrollThrottle]="50"
@@ -12,4 +7,7 @@
   class="search-result-wrapper"
 >
   <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+  <ng-container *ngIf="isVideoLoad">
+    <app-video-card *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
+  </ng-container>
 </div>

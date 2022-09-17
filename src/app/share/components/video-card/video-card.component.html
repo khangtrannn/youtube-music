@@ -12,8 +12,10 @@
 
   <div class="flex gap-2 mt-3">
     <ng-container *ngIf="{ image: video.channel.thumbnail | proxyImage | async } as data">
-      <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
-      <img *ngIf="data.image" class="mt-1 max-h-9 rounded-[50%]" [src]="data.image">
+      <div>
+        <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
+        <img *ngIf="data.image" class="mt-1 w-9 h-9 rounded-[50%]" [src]="data.image">
+      </div>
     </ng-container>
 
     <div class="meta">

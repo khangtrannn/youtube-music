@@ -10,7 +10,8 @@ import { switchMap, tap } from 'rxjs';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent implements OnInit {
-  isLoading = true;
+  isVideoLoad = true;
+  numberOfSkeletons = 9;
   videos: Video[] = [];
 
   constructor(
@@ -21,11 +22,11 @@ export class SearchResultComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams
       .pipe(
-        tap(() => (this.isLoading = true)),
+        tap(() => (this.isVideoLoad = true)),
         switchMap((params) => this.videoService.searchVideo(params['keyword']))
       )
       .subscribe((videos) => {
-        this.isLoading = false;
+        this.isVideoLoad = false;
         this.videos = videos;
       });
   }
