@@ -1,7 +1,9 @@
 <div class="video" (click)="onTouch.emit(video.id)">
-  <div class="thumbnail-container">
-    <img [src]="video.thumbnail" />
-    <span class="time-status">{{ video.duration }}</span>
+  <div class="thumbnail-placeholder">
+    <div class="thumbnail-container">
+      <img [src]="video.thumbnail" />
+      <span class="time-status">{{ video.duration }}</span>
+    </div>
   </div>
 
   <div class="flex gap-2 mt-3">

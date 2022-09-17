@@ -1,3 +1,10 @@
-<p>
-  search-result works!
-</p>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onSearchScroll()"
+  [scrollWindow]="false"
+  class="search-result-wrapper"
+>
+  <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+</div>

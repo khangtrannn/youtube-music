@@ -3,29 +3,7 @@
   <img #background class="background-image" [src]="'/assets/images/music-background.jpeg'" alt="Music Background">
 </div>
 
-<div class="py-4">
+<div class="p-4">
   <app-header></app-header>
-
-  <!-- <div style="display: flex; justify-content: center; gap: 40px;">
-    <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onSearchScroll()" [scrollWindow]="false"
-      style="max-height: 100vh; overflow-y: scroll;" class="container">
-      <app-video-card style="display: block; margin-bottom: 120px;" *ngFor="let video of videos"
-        [video]="video"
-        (videoChanged)="onVideoChanged($event)"
-      ></app-video-card>
-    </div>
-
-    <div style="padding-top: 4rem; display: flex; align-items: center; flex-direction: column;" >
-      <div style="margin-bottom: 50px; width: 100%;">
-        <div style="display: flex; justify-content: center; width: 100%;">
-          <input (keyup.enter)="onSearch()" [(ngModel)]="keyword" style="width: 100%;" type="text" placeholder="Enter keyword">
-          <button (click)="onSearch()">Search</button>
-        </div>
-        <p class="apple-text" *ngIf="isSearching">Searching...</p>
-      </div>
-
-      <b style="display: block; margin-bottom: 1rem;">{{ videoTitle }}</b>
-      <audio *ngIf="videoId" #audio [volume]="0.4" [src]="'/api/stream/' + videoId" autoplay controls preload="metadata"></audio>
-    </div>
-  </div> -->
+  <router-outlet></router-outlet>
 </div>

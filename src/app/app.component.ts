@@ -11,7 +11,7 @@ import {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'KTMusic';
   videos!: any[];
   videoId!: string;
@@ -34,19 +34,4 @@ export class AppComponent implements OnInit {
     this.backgroundRef.nativeElement.src = this.background;
   }
 
-  ngOnInit(): void {}
-
-  onSearch(): void {
-    this.isSearching = true;
-    this.videoService.searchVideo(this.keyword).subscribe((response) => {
-      this.isSearching = false;
-      this.videos = response.videos;
-    });
-  }
-
-  onSearchScroll(): void {
-    this.videoService.searchVideoContinuation().subscribe((response) => {
-      this.videos.push(...response.videos);
-    });
-  }
 }
