@@ -6,10 +6,10 @@
 <div class="wrapper" style="display: flex; justify-content: center; gap: 40px;">
   <div infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" (scrolled)="onSearchScroll()" [scrollWindow]="false"
     style="max-height: 100vh; overflow-y: scroll;" class="container">
-    <app-card style="display: block; margin-bottom: 120px;" *ngFor="let video of videos"
+    <app-video-card style="display: block; margin-bottom: 120px;" *ngFor="let video of videos"
       [video]="video"
       (videoChanged)="onVideoChanged($event)"
-    ></app-card>
+    ></app-video-card>
   </div>
 
   <div style="padding-top: 4rem; display: flex; align-items: center; flex-direction: column;" >
