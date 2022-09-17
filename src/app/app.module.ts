@@ -10,12 +10,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ShareModule } from './share/share.module';
 import { HeaderComponent } from './share/components/header/header.component';
+import { SearchResultComponent } from './components/search-result/search-result.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-  ],
+  declarations: [AppComponent, HeaderComponent, SearchResultComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -27,6 +25,6 @@ import { HeaderComponent } from './share/components/header/header.component';
     InfiniteScrollModule, // TODO: remove later
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
