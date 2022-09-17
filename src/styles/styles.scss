@@ -11,24 +11,24 @@ body {
   font-family: Roboto;
 }
 
-header {
-  text-align: center;
-  height: 24px;
-  padding: 32px 0 8px;
-  > img {
-    height: 100%;
-  }
-}
-
-.wrapper {
-  padding: 4rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 210px);
-  grid-row-gap: 0px;
-  grid-column-gap: 4px;
-  justify-content: center;
+body {
+  margin: 0;
+  padding: 0 1rem;
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: Roboto;
+  width: 100%;
 }
 
 a {
   text-decoration: none;
+}
+
+input, button {
+  border: none;
+  color: rgba(255, 255, 255, 0.88);
+
+  &:focus {
+    outline: none;
+  }
 }
