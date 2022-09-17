@@ -61,3 +61,7 @@ input, button {
     outline: none;
   }
 }
+
+ngx-skeleton-loader span.skeleton-loader {
+  background-color: #303030 !important;
+}

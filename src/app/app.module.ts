@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +23,9 @@ import { SearchResultComponent } from './components/search-result/search-result.
     FormsModule,
     ShareModule,
     MatIconModule,
-    InfiniteScrollModule, // TODO: remove later
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
