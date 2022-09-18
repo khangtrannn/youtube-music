@@ -9,12 +9,8 @@
     margin: 0 auto;
     grid-auto-rows: fit-content(1em);
 
-    .video-skeleton:last-child {
+    app-video-card:last-child, .video-skeleton:last-child {
       margin-bottom: 350px;
-    }
-
-    app-video-card:last-child {
-      margin-bottom: 100px;
     }
   }
 }
