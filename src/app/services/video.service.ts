@@ -2,10 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, tap } from 'rxjs';
 import { SearchVideoResponse } from '../models/search-video-response';
+import { SuggestVideosResponse } from '../models/suggest-videos-response';
 import { Video } from '../models/video';
 import { VideoDetailResponse } from '../models/video-detail-response';
 
 interface PageToken {
+  end: boolean;
   continuation: string;
   visitorData: string;
 }
@@ -15,11 +17,13 @@ interface PageToken {
 })
 export class VideoService {
   videoSearchToken: PageToken = {
+    end: false,
     continuation: '',
     visitorData: ''
   };
 
-  videoDetailToken: PageToken = {
+  suggestVideoToken: PageToken = {
+    end: false,
     continuation: '',
     visitorData: ''
   };
@@ -59,8 +63,30 @@ export class VideoService {
   getVideoDetail(id: string): Observable<VideoDetailResponse> {
     return this.http.get<VideoDetailResponse>(`/api/videos/detail/${id}`)
       .pipe(tap((response) => {
-        this.videoDetailToken.visitorData = response.visitorData;
-        this.videoDetailToken.continuation = response.continuation;
+        this.suggestVideoToken.visitorData = response.visitorData;
+        this.suggestVideoToken.continuation = response.continuation;
       }));
+  }
+
+  getSuggestVideosContinuation(): Observable<Video[]> {
+    return this.http
+      .post<SuggestVideosResponse>('/api/videos/suggestion/continuation', {
+        continuation: this.suggestVideoToken.continuation,
+        visitorData: this.suggestVideoToken.visitorData,
+      })
+      .pipe(
+        tap((response) => {
+          this.suggestVideoToken.continuation = response.continuation;
+
+          if (!response.continuation) {
+            this.suggestVideoToken.end = true;
+          }
+        }),
+        map((response) => response.videos)
+      );
+  }
+
+  haveMoreSuggestion(): boolean {
+    return !this.suggestVideoToken.end;
   }
 }
