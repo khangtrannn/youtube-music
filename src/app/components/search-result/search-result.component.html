@@ -7,7 +7,7 @@
   class="search-result-wrapper"
 >
   <app-video-card *ngFor="let video of videos" [video]="video" (onTouch)="onVideoTouched($event)"></app-video-card>
-  <ng-container *ngIf="isVideoLoad">
+  <ng-container *ngIf="isVideoLoad" class="overflow-hidden">
     <app-video-card class="video-skeleton" *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
   </ng-container>
 </div>

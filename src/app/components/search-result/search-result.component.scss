@@ -6,6 +6,7 @@
   height: 100vh;
   overflow-y: scroll;
   margin: 0 auto;
+  grid-auto-rows: fit-content(1em);
 
   .video-skeleton:last-child {
     margin-bottom: 150px;
