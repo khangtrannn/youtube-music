@@ -1,4 +1,3 @@
-import { WaveSurferService } from './wave-surfer.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
