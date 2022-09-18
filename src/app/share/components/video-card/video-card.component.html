@@ -1,44 +1,48 @@
-<div *ngIf="video" class="video" (click)="onTouch.emit(video.id)">
-  <div class="thumbnail-placeholder">
-    <div class="thumbnail-container">
-      <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
-        <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
-        <img *ngIf="data.image" [src]="data.image" alt="Video thumbnail" />
+<ng-container *ngIf="video; else skeleton">
+  <div class="video" (click)="onTouch.emit(video.id)">
+    <div class="thumbnail-placeholder">
+      <div class="thumbnail-container">
+        <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
+          <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
+          <img *ngIf="data.image" [src]="data.image" alt="Video thumbnail" />
+        </ng-container>
+
+        <span class="time-status">{{ video.duration }}</span>
+      </div>
+    </div>
+
+    <div class="flex gap-2 mt-3">
+      <ng-container *ngIf="{ image: video.channel.thumbnail | proxyImage | async } as data">
+        <div>
+          <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
+          <img *ngIf="data.image" class="mt-1 w-9 h-9 rounded-[50%]" [src]="data.image">
+        </div>
       </ng-container>
 
-      <span class="time-status">{{ video.duration }}</span>
-    </div>
-  </div>
-
-  <div class="flex gap-2 mt-3">
-    <ng-container *ngIf="{ image: video.channel.thumbnail | proxyImage | async } as data">
-      <div>
-        <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
-        <img *ngIf="data.image" class="mt-1 w-9 h-9 rounded-[50%]" [src]="data.image">
+      <div class="meta min-h-[80px]">
+        <span class="apple-text mb-3 inline-block" [title]="video.title">{{ video.title }}</span>
+        <span class="text !block hover:!text-[#f5f5f7] hover:!opacity-[0.8]" >{{ video.channel.title }}</span>
+        <span class="text dot" >{{ video.view }}</span>
+        <span class="text">{{ video.publishedTime }}</span>
       </div>
-    </ng-container>
-
-    <div class="meta">
-      <span class="apple-text mb-3 inline-block" [title]="video.title">{{ video.title }}</span>
-      <span class="text !block hover:!text-[#f5f5f7] hover:!opacity-[0.8]" >{{ video.channel.title }}</span>
-      <span class="text dot" >{{ video.view }}</span>
-      <span class="text">{{ video.publishedTime }}</span>
     </div>
   </div>
-</div>
+</ng-container>
 
-<div *ngIf="!video" class="video">
-  <div class="thumbnail-placeholder">
-    <div class="thumbnail-container">
-      <ngx-skeleton-loader [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
+<ng-template #skeleton>
+  <div class="video">
+    <div class="thumbnail-placeholder">
+      <div class="thumbnail-container">
+        <ngx-skeleton-loader [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
+      </div>
+    </div>
+
+    <div class="flex gap-3 mt-3 min-h-[80px]">
+      <ngx-skeleton-loader [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
+      <div class="w-full">
+        <ngx-skeleton-loader [theme]="{ width: '90%', height: '20px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader [theme]="{ width: '60%', height: '20px' }"></ngx-skeleton-loader>
+      </div>
     </div>
   </div>
-
-  <div class="flex gap-3 mt-3">
-    <ngx-skeleton-loader [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
-    <div class="w-full">
-      <ngx-skeleton-loader [theme]="{ width: '90%', height: '20px' }"></ngx-skeleton-loader>
-      <ngx-skeleton-loader [theme]="{ width: '60%', height: '20px' }"></ngx-skeleton-loader>
-    </div>
-  </div>
-</div>
+</ng-template>
