@@ -4,12 +4,19 @@ import { map, Observable, of, tap } from 'rxjs';
 import { SearchVideoResponse } from '../models/search-video-response';
 import { Video } from '../models/video';
 
+interface PageToken {
+  continuation: string;
+  visitorData: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
-  continuation!: string;
-  visitorData!: string;
+  videoSearchToken: PageToken = {
+    continuation: '',
+    visitorData: ''
+  };
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +31,8 @@ export class VideoService {
 
     return this.http.get<SearchVideoResponse>('/api/videos/search?keyword=' + keyword).pipe(
       tap((response) => {
-        this.continuation = response.continuation;
-        this.visitorData = response.visitorData;
+        this.videoSearchToken.continuation = response.continuation;
+        this.videoSearchToken.visitorData = response.visitorData;
       }),
       map((response) => response.videos)
     );
@@ -34,9 +41,9 @@ export class VideoService {
   searchVideoContinuation(): Observable<any> {
     return this.http
       .post<any>('/api/videos/search/continuation', {
-        continuation: this.continuation,
-        visitorData: this.visitorData,
+        continuation: this.videoSearchToken.continuation,
+        visitorData: this.videoSearchToken.visitorData,
       })
-      .pipe(tap((response) => this.continuation = response.continuation));
+      .pipe(tap((response) => this.videoSearchToken.continuation = response.continuation));
   }
 }
