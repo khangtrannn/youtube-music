@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Video } from 'src/app/models/video';
 
 @Component({
@@ -8,4 +8,5 @@ import { Video } from 'src/app/models/video';
 })
 export class MusicPlayerComponent {
   @Input() video: Video | undefined;
+  @Output() onEnded = new EventEmitter<void>();
 }
