@@ -1,15 +1,17 @@
 import { VideoService } from './../../services/video.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Video } from 'src/app/models/video';
-import { switchMap, tap } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit, OnDestroy {
+  private onDestroy$ = new Subject<void>();
+
   isVideoLoad = true;
   numberOfSkeletons = 9;
   videos: Video[] = [];
@@ -26,7 +28,8 @@ export class SearchResultComponent implements OnInit {
           this.isVideoLoad = true;
           this.numberOfSkeletons = 9;
         }),
-        switchMap((params) => this.videoService.searchVideo(params['keyword']))
+        switchMap((params) => this.videoService.searchVideo(params['keyword'])),
+        takeUntil(this.onDestroy$),
       )
       .subscribe((videos) => {
         this.isVideoLoad = false;
@@ -41,5 +44,10 @@ export class SearchResultComponent implements OnInit {
       this.isVideoLoad = false;
       this.videos.push(...response.videos);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }
