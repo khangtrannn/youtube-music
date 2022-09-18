@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, of, tap } from 'rxjs';
 import { SearchVideoResponse } from '../models/search-video-response';
 import { Video } from '../models/video';
+import { VideoDetailResponse } from '../models/video-detail-response';
 
 interface PageToken {
   continuation: string;
@@ -14,6 +15,11 @@ interface PageToken {
 })
 export class VideoService {
   videoSearchToken: PageToken = {
+    continuation: '',
+    visitorData: ''
+  };
+
+  videoDetailToken: PageToken = {
     continuation: '',
     visitorData: ''
   };
@@ -38,12 +44,23 @@ export class VideoService {
     );
   }
 
-  searchVideoContinuation(): Observable<any> {
+  searchVideoContinuation(): Observable<Video[]> {
     return this.http
-      .post<any>('/api/videos/search/continuation', {
+      .post<SearchVideoResponse>('/api/videos/search/continuation', {
         continuation: this.videoSearchToken.continuation,
         visitorData: this.videoSearchToken.visitorData,
       })
-      .pipe(tap((response) => this.videoSearchToken.continuation = response.continuation));
+      .pipe(
+        tap((response) => this.videoSearchToken.continuation = response.continuation),
+        map((response) => response.videos)
+      );
+  }
+
+  getVideoDetail(id: string): Observable<VideoDetailResponse> {
+    return this.http.get<VideoDetailResponse>(`/api/videos/detail/${id}`)
+      .pipe(tap((response) => {
+        this.videoDetailToken.visitorData = response.visitorData;
+        this.videoDetailToken.continuation = response.continuation;
+      }));
   }
 }

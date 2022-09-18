@@ -1,3 +1,4 @@
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { MatIconModule } from '@angular/material/icon';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -35,6 +36,7 @@ import { StartupService } from './services/startup.service';
     BrowserAnimationsModule,
     NgxSpinnerModule,
     InfiniteScrollModule,
+    NgxSkeletonLoaderModule,
   ],
   providers: [
     {

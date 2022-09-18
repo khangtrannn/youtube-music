@@ -1,0 +1,21 @@
+.thumbnail {
+  &-placeholder {
+    position: relative;
+    width: 320px;
+    padding-top: 55%;
+  }
+
+  &-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    img, ngx-skeleton-loader {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

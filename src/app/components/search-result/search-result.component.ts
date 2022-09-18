@@ -40,9 +40,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   onSearchScroll(): void {
     this.isVideoLoad = true;
     this.numberOfSkeletons = 6;
-    this.videoService.searchVideoContinuation().subscribe((response) => {
+    this.videoService.searchVideoContinuation().subscribe((videos) => {
       this.isVideoLoad = false;
-      this.videos.push(...response.videos);
+      this.videos.push(...videos);
     });
   }
 

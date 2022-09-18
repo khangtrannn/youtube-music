@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 @Pipe({
   name: 'proxyImage'
@@ -9,7 +9,11 @@ import { map, Observable } from 'rxjs';
 export class ProxyImagePipe implements PipeTransform {
   constructor(private httpClient: HttpClient, private sanitizer: DomSanitizer) {}
 
-  transform(imageUrl: string): Observable<string | SafeUrl> {
+  transform(imageUrl: string | undefined): Observable<string | SafeUrl> {
+    if (!imageUrl) {
+      return of();
+    }
+
     return this.httpClient
       .get('/api/images?url=' + imageUrl, {
         responseType: 'blob',
