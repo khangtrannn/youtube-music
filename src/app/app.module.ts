@@ -12,9 +12,10 @@ import { FormsModule } from '@angular/forms';
 import { ShareModule } from './share/share.module';
 import { HeaderComponent } from './share/components/header/header.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
+import { MusicComponent } from './components/music/music.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, SearchResultComponent],
+  declarations: [AppComponent, HeaderComponent, SearchResultComponent, MusicComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
