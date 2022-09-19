@@ -5,33 +5,24 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'KTMusic';
-  videos!: any[];
-  videoId!: string;
-  videoTitle!: string;
-  background!: string;
 
-  keyword!: string;
-  isSearching = false;
+  constructor(private router: Router) {}
 
-  @ViewChild('audio') audioRef!: ElementRef<HTMLAudioElement>;
-  @ViewChild('background') backgroundRef!: ElementRef<HTMLImageElement>;
-
-  constructor(private videoService: VideoService) {}
-
-  onVideoChanged(data: any): void {
-    const dataJson = JSON.parse(data);
-    this.videoId = dataJson.videoId;
-    this.videoTitle = dataJson.videoTitle;
-    this.background = dataJson.thumbnail;
-    this.backgroundRef.nativeElement.src = this.background;
+  ngOnInit(): void {
+    this.router.navigate(['/search-results'], {
+      queryParams: {
+        keyword: 'lofi',
+      },
+      skipLocationChange: true,
+    });
   }
-
 }
