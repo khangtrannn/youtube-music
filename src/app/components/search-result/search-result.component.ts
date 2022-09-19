@@ -19,7 +19,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private videoService: VideoService,
-    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -36,10 +35,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.isVideoLoad = false;
         this.videos = videos;
       });
-  }
-
-  onVideoTouched(videoId: string): void {
-    this.router.navigate([`/music/${videoId}`]);
   }
 
   onSearchScroll(): void {

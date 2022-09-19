@@ -24,11 +24,7 @@ export class SuggestVideoComponent {
   isVideoLoad = true;
   numberOfSkeletons = 12;
 
-  constructor(private router: Router, private videoService: VideoService) {}
-
-  onVideoTouched(videoId: string): void {
-    this.router.navigate([`/music/${videoId}`]);
-  }
+  constructor(private videoService: VideoService) {}
 
   onScroll(): void {
     if (this.videoService.haveMoreSuggestion()) {
