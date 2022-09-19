@@ -12,5 +12,5 @@ export class VideoListComponent {
   @Input() videos: Video[] = [];
   @Input() isVideoLoading!: boolean;
 
-  @Output('loadMore') onScroll = new EventEmitter<void>();
+  @Output('onLoadMore') onScroll = new EventEmitter<void>();
 }

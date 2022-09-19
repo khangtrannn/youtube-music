@@ -25,7 +25,7 @@ export class SuggestVideoComponent implements OnInit {
       });
   }
 
-  onLoadMore(): void {
+  loadMore(): void {
     this.isVideoLoading = true;
     if (this.suggestVideoService.hasMoreSuggestion()) {
       this.suggestVideoService

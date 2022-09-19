@@ -26,32 +26,6 @@ export class VideoService {
     return this.http.get<any>('/api/videos');
   }
 
-  searchVideo(keyword: string): Observable<Video[]> {
-    if (!keyword) {
-      return of([]);
-    }
-
-    return this.http.get<SearchVideoResponse>('/api/videos/search?keyword=' + keyword).pipe(
-      tap((response) => {
-        this.videoSearchToken.continuation = response.continuation;
-        this.videoSearchToken.visitorData = response.visitorData;
-      }),
-      map((response) => response.videos)
-    );
-  }
-
-  searchVideoContinuation(): Observable<Video[]> {
-    return this.http
-      .post<SearchVideoResponse>('/api/videos/search/continuation', {
-        continuation: this.videoSearchToken.continuation,
-        visitorData: this.videoSearchToken.visitorData,
-      })
-      .pipe(
-        tap((response) => this.videoSearchToken.continuation = response.continuation),
-        map((response) => response.videos)
-      );
-  }
-
   getVideoDetail(id: string): Observable<Video> {
     return this.http.get<Video>(`/api/videos/detail/${id}`);
   }

@@ -1,6 +1,6 @@
-import { VideoService } from './../../services/video.service';
+import { SearchVideoService } from './../../services/search-video.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Video } from 'src/app/models/video';
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 
@@ -11,27 +11,31 @@ import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
+  isVideoLoading = true;
 
   videos: Video[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private videoService: VideoService
+    private searchVideoService: SearchVideoService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(
-        switchMap((params) => this.videoService.searchVideo(params['keyword'])),
+        tap(() => this.isVideoLoading = true),
+        switchMap((params) => this.searchVideoService.searchVideo(params['keyword'])),
         takeUntil(this.onDestroy$)
       )
       .subscribe((videos) => {
+
+        this.isVideoLoading = false;
         this.videos = videos;
       });
   }
 
-  onSearchScroll(): void {
-    this.videoService
+  loadMore(): void {
+    this.searchVideoService
       .searchVideoContinuation()
       .subscribe((videos) => this.videos.push(...videos));
   }
