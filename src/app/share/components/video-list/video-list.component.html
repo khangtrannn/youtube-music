@@ -4,10 +4,12 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll.emit()"
   [scrollWindow]="false"
-  class="search-result-wrapper"
+  class="h-[100vh] overflow-scroll"
 >
-  <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
-  <ng-container *ngIf="!videos.length">
-    <app-video-card class="video-skeleton" *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
-  </ng-container>
+  <div class="video-list">
+    <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
+    <ng-container *ngIf="isVideoLoading">
+      <app-video-card class="video-skeleton" *ngFor="let video of [].constructor(numberOfSkeletons)"></app-video-card>
+    </ng-container>
+  </div>
 </div>

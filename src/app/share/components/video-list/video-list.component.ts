@@ -10,5 +10,7 @@ export class VideoListComponent {
   numberOfSkeletons = 12;
 
   @Input() videos: Video[] = [];
+  @Input() isVideoLoading!: boolean;
+
   @Output('loadMore') onScroll = new EventEmitter<void>();
 }
