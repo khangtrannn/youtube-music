@@ -1,5 +1,5 @@
 <ng-container *ngIf="video; else skeleton">
-  <div class="video" (click)="onTouch.emit(video.id)">
+  <div class="video" (click)="onTouch()">
     <div class="thumbnail-placeholder">
       <div class="thumbnail-container">
         <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
