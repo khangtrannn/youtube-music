@@ -22,13 +22,13 @@ export class SuggestVideoComponent {
   videos: Video[] = [];
 
   isVideoLoad = true;
-  numberOfSkeletons = 9;
+  numberOfSkeletons = 12;
 
   constructor(private videoService: VideoService) {}
 
   onScroll(): void {
     if (this.videoService.haveMoreSuggestion()) {
-      this.numberOfSkeletons = 6;
+      this.numberOfSkeletons = 8;
       this.isVideoLoad = true;
 
       this.videoService.getSuggestVideosContinuation()
