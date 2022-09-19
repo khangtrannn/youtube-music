@@ -13,7 +13,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
   isVideoLoad = true;
-  numberOfSkeletons = 9;
+  numberOfSkeletons = 12;
   videos: Video[] = [];
 
   constructor(
@@ -27,7 +27,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       .pipe(
         tap(() => {
           this.isVideoLoad = true;
-          this.numberOfSkeletons = 9;
+          this.numberOfSkeletons = 12;
         }),
         switchMap((params) => this.videoService.searchVideo(params['keyword'])),
         takeUntil(this.onDestroy$),
@@ -44,7 +44,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   onSearchScroll(): void {
     this.isVideoLoad = true;
-    this.numberOfSkeletons = 6;
+    this.numberOfSkeletons = 8;
     this.videoService.searchVideoContinuation().subscribe((videos) => {
       this.isVideoLoad = false;
       this.videos.push(...videos);
