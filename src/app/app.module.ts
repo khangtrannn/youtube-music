@@ -17,6 +17,7 @@ import { MusicComponent } from './components/music/music.component';
 import { MusicPlayerComponent } from './components/music/components/music-player/music-player.component';
 import { StartupService } from './services/startup.service';
 import { SuggestVideoComponent } from './components/suggest-video/suggest-video.component';
+import { BackgroundComponent } from './components/background/background.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SuggestVideoComponent } from './components/suggest-video/suggest-video.
     MusicComponent,
     MusicPlayerComponent,
     SuggestVideoComponent,
+    BackgroundComponent,
   ],
   imports: [
     BrowserModule,

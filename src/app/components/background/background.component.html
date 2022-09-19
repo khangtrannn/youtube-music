@@ -1,0 +1,4 @@
+<div class="background">
+  <div class="backdrop"></div>
+  <img [@inOutAnimation] *ngFor="let image of [background]" class="background-image" [src]="image | proxyImage | async" alt="Music Background">
+</div>

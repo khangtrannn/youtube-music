@@ -2,7 +2,7 @@
   <input (keyup.enter)="keyword && onSearch()" [(ngModel)]="keyword" type="text" placeholder="Search"
     class="text-base w-full px-2 border-solid border-[1px] border-[#303030] bg-[#121212] h-10">
 
-  <div (click)="keyword && onSearch()" class="flex items-center px-5 bg-[#303030]">
+  <div (click)="keyword && onSearch()" class="flex items-center cursor-pointer px-5 bg-[#303030]">
     <mat-icon class="text-[#999]">search</mat-icon>
   </div>
 </div>
