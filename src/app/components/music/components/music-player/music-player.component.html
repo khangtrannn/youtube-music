@@ -18,6 +18,6 @@
       <ngx-skeleton-loader class="block" *ngIf="!video?.channel?.title" [theme]="{ width: '30%', height: '16px', 'border-radius': 0, 'margin-bottom': 0 }"></ngx-skeleton-loader>
       <span *ngIf="video?.channel?.title" class="block apple-text">{{ video?.channel?.title }}</span>
     </div>
-    <audio [volume]="0.2" (ended)="onEnded.emit()" class="w-full max-w-md h-10" autoplay controls preload="metadata" [src]="'/api/stream/' + video?.id"></audio>
+    <audio [volume]="0.2" (ended)="nextVideo()" (error)="nextVideo()" class="w-full max-w-md h-10" autoplay controls preload="metadata" [src]="'/api/stream/' + video?.id"></audio>
   </div>
 </div>

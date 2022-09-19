@@ -1,7 +1,8 @@
-import { VideoDetailResponse } from './../../models/video-detail-response';
+import { SuggestVideoService } from './../../services/suggest-video.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Video } from 'src/app/models/video';
 import { VideoService } from 'src/app/services/video.service';
 
 @Component({
@@ -10,29 +11,28 @@ import { VideoService } from 'src/app/services/video.service';
   styleUrls: ['./music.component.scss'],
 })
 export class MusicComponent implements OnInit {
-  videoDetail: VideoDetailResponse | undefined;
-
-  nextVideoIndex = 0;
+  private onDestroy$ = new Subject<void>();
+  videoDetail: Video | undefined;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private videoService: VideoService,
-    private router: Router,
+    private suggestVideoService: SuggestVideoService,
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params
-      .pipe(switchMap((params) => this.videoService.getVideoDetail(params['id'])))
-      .subscribe((videoDetail) => {
-        this.videoDetail = videoDetail;
-        this.nextVideoIndex = 0;
-      });
-  }
+      .pipe(
+        switchMap((params) => this.videoService.getVideoDetail(params['id'])),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe((videoDetail) => (this.videoDetail = videoDetail));
 
-  onAudioEnd(): void {
-    const nextVideoId = this.videoDetail?.suggestVideos[this.nextVideoIndex].id;
-    this.nextVideoIndex += 1;
-
-    this.router.navigate([`/music/${nextVideoId}`]);
+    this.activatedRoute.params
+      .pipe(
+        switchMap((params) => this.suggestVideoService.initData(params['id'])),
+        takeUntil(this.onDestroy$)
+      )
+      .subscribe();
   }
 }

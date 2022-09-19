@@ -1,40 +1,38 @@
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { VideoService } from 'src/app/services/video.service';
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Video } from 'src/app/models/video';
+import { SuggestVideoService } from './../../services/suggest-video.service';
 
 @Component({
   selector: 'app-suggest-video',
   templateUrl: './suggest-video.component.html',
-  styleUrls: ['./suggest-video.component.scss']
+  styleUrls: ['./suggest-video.component.scss'],
 })
-export class SuggestVideoComponent {
+export class SuggestVideoComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
+  videos: Video[] = [];
+  isVideoLoading = true;
 
-  @Input() set suggestVideos(value: Video[] | undefined) {
-    if (value) {
-      this.videos = value;
-      this.isVideoLoad = false;
-    }
+  constructor(private suggestVideoService: SuggestVideoService) {}
+
+  ngOnInit(): void {
+    this.suggestVideoService
+      .getSuggestion()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((videos) => {
+        this.isVideoLoading = false;
+        this.videos = videos;
+      });
   }
 
-  videos: Video[] = [];
-
-  isVideoLoad = true;
-  numberOfSkeletons = 12;
-
-  constructor(private videoService: VideoService) {}
-
-  onScroll(): void {
-    if (this.videoService.haveMoreSuggestion()) {
-      this.numberOfSkeletons = 8;
-      this.isVideoLoad = true;
-
-      this.videoService.getSuggestVideosContinuation()
+  onLoadMore(): void {
+    this.isVideoLoading = true;
+    if (this.suggestVideoService.hasMoreSuggestion()) {
+      this.suggestVideoService
+        .getSuggestVideosContinuation()
         .pipe(takeUntil(this.onDestroy$))
         .subscribe((videos) => {
-          this.isVideoLoad = false;
+          this.isVideoLoading = false;
           this.videos.push(...videos);
         });
     }

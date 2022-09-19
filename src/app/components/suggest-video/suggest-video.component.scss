@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  app-video-list {
+    .video-list {
+      &:last-child {
+        margin-bottom: 275px;
+      }
+    }
+  }
+}
