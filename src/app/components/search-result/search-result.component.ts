@@ -12,38 +12,28 @@ import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 export class SearchResultComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
 
-  isVideoLoad = true;
-  numberOfSkeletons = 9;
   videos: Video[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private videoService: VideoService,
+    private videoService: VideoService
   ) {}
 
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(
-        tap(() => {
-          this.isVideoLoad = true;
-          this.numberOfSkeletons = 9;
-        }),
         switchMap((params) => this.videoService.searchVideo(params['keyword'])),
-        takeUntil(this.onDestroy$),
+        takeUntil(this.onDestroy$)
       )
       .subscribe((videos) => {
-        this.isVideoLoad = false;
         this.videos = videos;
       });
   }
 
   onSearchScroll(): void {
-    this.isVideoLoad = true;
-    this.numberOfSkeletons = 6;
-    this.videoService.searchVideoContinuation().subscribe((videos) => {
-      this.isVideoLoad = false;
-      this.videos.push(...videos);
-    });
+    this.videoService
+      .searchVideoContinuation()
+      .subscribe((videos) => this.videos.push(...videos));
   }
 
   ngOnDestroy(): void {

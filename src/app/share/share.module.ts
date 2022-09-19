@@ -5,10 +5,12 @@ import { CommonModule } from '@angular/common';
 import { VideoCardComponent } from './components/video-card/video-card.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatIconModule } from '@angular/material/icon';
+import { VideoListComponent } from './components/video-list/video-list.component';
 
 const declarations = [
   VideoCardComponent,
   ProxyImagePipe,
+  VideoListComponent,
 ];
 
 @NgModule({
