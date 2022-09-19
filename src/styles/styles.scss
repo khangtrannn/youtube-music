@@ -74,7 +74,7 @@ ngx-skeleton-loader span.skeleton-loader {
   background-color: #303030 !important;
 }
 
-div:not([no-y-overflow])::-webkit-scrollbar-thumb {
+.custom-scroll:not([no-y-overflow])::-webkit-scrollbar-thumb {
     height: 56px;
     border-radius: 8px;
     border: 4px solid transparent;
@@ -82,7 +82,7 @@ div:not([no-y-overflow])::-webkit-scrollbar-thumb {
     background-color: #717171;
 }
 
-div::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb {
     height: 56px;
     border-radius: 8px;
     border: 4px solid transparent;

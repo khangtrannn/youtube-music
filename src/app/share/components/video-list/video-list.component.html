@@ -4,7 +4,7 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll.emit()"
   [scrollWindow]="false"
-  class="h-[100vh] overflow-scroll"
+  class="h-[100vh] overflow-scroll custom-scroll"
 >
   <div class="video-list">
     <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
