@@ -1,4 +1,9 @@
-<div class="flex w-full max-w-xl mx-auto mb-8">
+  <a class="absolute flex items-center" routerLink="/">
+    <img class="max-h-12 cursor-pointer" src="/assets/images/logo.png" />
+    <span class="chill ml-4 text-2xl font-bold tracking-[3px] uppercase">C H I L L.</span>
+  </a>
+
+<div class="flex w-full max-w-xl mx-auto mb-10">
   <input (keyup.enter)="keyword && onSearch()" [(ngModel)]="keyword" type="text" placeholder="Search"
     class="text-base w-full px-2 border-solid border-[1px] border-[#303030] bg-[#121212] h-10">
 
