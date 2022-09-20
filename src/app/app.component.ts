@@ -1,10 +1,5 @@
-import { VideoService } from './services/video.service';
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,14 +10,16 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'KTMusic';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {}
 
   ngOnInit(): void {
-    this.router.navigate(['/search-results'], {
-      queryParams: {
-        keyword: 'lofi',
-      },
-      skipLocationChange: true,
-    });
+    if (!this.location.path()) {
+      this.router.navigate(['/search-results'], {
+        queryParams: {
+          keyword: 'lofi chill',
+        },
+        skipLocationChange: true,
+      });
+    }
   }
 }
