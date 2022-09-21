@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, of, ReplaySubject, tap } from 'rxjs';
 import { SearchVideoResponse } from '../models/search-video-response';
 import { Video } from '../models/video';
 
@@ -14,12 +14,6 @@ interface PageToken {
   providedIn: 'root',
 })
 export class VideoService {
-  videoSearchToken: PageToken = {
-    end: false,
-    continuation: '',
-    visitorData: ''
-  };
-
   constructor(private http: HttpClient) {}
 
   getAllVideos(): Observable<any[]> {

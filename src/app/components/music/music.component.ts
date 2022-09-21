@@ -1,3 +1,4 @@
+import { BackgroundService } from './../../services/background.service';
 import { SuggestVideoService } from './../../services/suggest-video.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,21 +19,30 @@ export class MusicComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private videoService: VideoService,
     private suggestVideoService: SuggestVideoService,
+    private backgroundService: BackgroundService,
   ) {}
 
   ngOnInit() {
     this.activatedRoute.params
-      .pipe(
-        switchMap((params) => this.videoService.getVideoDetail(params['id'])),
-        takeUntil(this.onDestroy$)
-      )
-      .subscribe((videoDetail) => (this.videoDetail = videoDetail));
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => {
+        this.getVideoDetail(params['id']);
+        this.getSuggestVideo(params['id']);
+      });
+  }
 
-    this.activatedRoute.params
-      .pipe(
-        switchMap((params) => this.suggestVideoService.initData(params['id'])),
-        takeUntil(this.onDestroy$)
-      )
+  getVideoDetail(id: string): void {
+    this.videoService.getVideoDetail(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((videoDetail) => {
+        this.videoDetail = videoDetail;
+        this.backgroundService.setBackground(videoDetail.thumbnail);
+      });
+  }
+
+  getSuggestVideo(id: string): void {
+    this.suggestVideoService.initData(id)
+      .pipe(takeUntil(this.onDestroy$))
       .subscribe();
   }
 }

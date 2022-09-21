@@ -11,9 +11,10 @@ import { inOutAnimation } from 'src/app/share/animations/inOutAnimation';
 })
 export class BackgroundComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
-  background = 'https://i.pinimg.com/originals/15/ee/18/15ee1830a58416b902b6ef55678f052c.jpg';
+  defaultBackground = 'https://i.pinimg.com/originals/15/ee/18/15ee1830a58416b902b6ef55678f052c.jpg';
+  background: string | undefined;
 
-  constructor(private backgroundService: BackgroundService) { }
+  constructor(public backgroundService: BackgroundService) { }
 
   ngOnInit() {
     this.backgroundService.getBackground()
