@@ -1,5 +1,5 @@
 import { SuggestVideoService } from './../../../../services/suggest-video.service';
-import { Component, Input, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Video } from 'src/app/models/video';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,7 +11,9 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class MusicPlayerComponent implements OnDestroy {
   private onDestroy$ = new Subject<void>();
+
   @Input() video: Video | undefined;
+  @ViewChild('audio') audio!: ElementRef<HTMLAudioElement>;
 
   constructor(private suggestVideoService: SuggestVideoService, private router: Router) {}
 
@@ -19,6 +21,15 @@ export class MusicPlayerComponent implements OnDestroy {
     this.suggestVideoService.getNextVideo().pipe(takeUntil(this.onDestroy$)).subscribe((video) => {
       this.router.navigate([`/music/${video.id}`]);
     })
+  }
+
+  onVideoError(): void {
+    this.audio.nativeElement.src = this.getAnotherStream();
+    this.audio.nativeElement.play();
+  }
+
+  private getAnotherStream(): string {
+    return `/api/stream/v2/${this.video?.id}`;
   }
 
   ngOnDestroy(): void {

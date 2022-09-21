@@ -19,7 +19,6 @@ export class HeaderComponent implements OnInit {
     this.user = this.localStorageService.getUser();
 
     this.authService.authState.subscribe((user) => {
-      console.log(user);
       this.user = user;
       this.loggedIn = user != null;
       this.localStorageService.storeUser(user);
