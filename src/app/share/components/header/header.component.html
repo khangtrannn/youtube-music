@@ -15,10 +15,9 @@
 
   <div class="block absolute right-4 top-0">
     <ng-container *ngIf="user; else googleLogin">
-      <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
-      <!-- <div style="--c: linear-gradient(140deg, red, yellow, green)" class="avatar-gradient">
+      <div style="--c: linear-gradient(225deg, #2196f3 0%, #b3077f 100%)" class="avatar-gradient">
         <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
-      </div> -->
+      </div>
     </ng-container>
   </div>
 </div>
