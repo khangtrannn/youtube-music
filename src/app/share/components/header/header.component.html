@@ -1,21 +1,26 @@
-<a class="absolute flex items-center" routerLink="/">
-  <img class="max-h-12 cursor-pointer" src="/assets/images/logo.png" />
-  <span class="chill ml-4 text-2xl font-bold tracking-[3px] uppercase">C H I L L.</span>
-</a>
+<div class="relative">
+  <a class="absolute flex items-center" routerLink="/">
+    <img class="max-h-12 cursor-pointer" src="/assets/images/logo.png" />
+    <span class="chill ml-4 text-2xl font-bold tracking-[3px] uppercase">C H I L L.</span>
+  </a>
 
-<div class="flex w-full max-w-xl mx-auto mb-10">
-  <input (keyup.enter)="keyword && onSearch()" [(ngModel)]="keyword" type="text" placeholder="Search"
-    class="text-base w-full px-2 border-solid border-[1px] border-[#303030] bg-[#121212] h-10">
+  <div class="flex w-full max-w-xl mx-auto mb-10">
+    <input (keyup.enter)="keyword && onSearch()" [(ngModel)]="keyword" type="text" placeholder="Search"
+      class="text-base w-full px-2 border-solid border-[1px] border-[#303030] bg-[#121212] h-10">
 
-  <div (click)="keyword && onSearch()" class="flex items-center cursor-pointer px-5 bg-[#303030]">
-    <mat-icon class="text-[#999]">search</mat-icon>
+    <div (click)="keyword && onSearch()" class="flex items-center cursor-pointer px-5 bg-[#303030]">
+      <mat-icon class="text-[#999]">search</mat-icon>
+    </div>
   </div>
-</div>
 
-<div class="block absolute top-4 right-4">
-  <ng-container *ngIf="user; else googleLogin">
-    <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
-  </ng-container>
+  <div class="block absolute w-11 h-11 right-4 top-0">
+    <ng-container *ngIf="user; else googleLogin">
+      <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
+      <!-- <div style="--c: linear-gradient(140deg, red, yellow, green)" class="avatar-gradient">
+        <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
+      </div> -->
+    </ng-container>
+  </div>
 </div>
 
 <ng-template #googleLogin>
