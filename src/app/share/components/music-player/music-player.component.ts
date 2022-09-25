@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 import { debounceTime, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Video } from 'src/app/models/video';
 import { VideoService } from 'src/app/services/video.service';
-import { SuggestVideoService } from './../../../../services/suggest-video.service';
-import { UserService } from './../../../../services/user.service';
+import { SuggestVideoService } from '../../../services/suggest-video.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-music-player',
