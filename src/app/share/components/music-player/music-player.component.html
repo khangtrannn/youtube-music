@@ -22,7 +22,7 @@
     </div>
 
     <mat-icon
-      *ngIf="userId"
+      *ngIf="userId && video"
       (click)="isFavorite = !isFavorite; onToggleFavorite$.next(isFavorite)" class="cursor-pointer fa-beat">
       {{ isFavorite ? 'favorite' : 'favorite_outlined' }}</mat-icon>
 

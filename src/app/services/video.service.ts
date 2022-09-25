@@ -9,10 +9,18 @@ import { Video } from '../models/video';
   providedIn: 'root',
 })
 export class VideoService {
-  favorites$ = new ReplaySubject<Video[]>(1);
-  favorites: Video[] | undefined;
+  private favorites: Video[] | undefined;
+  private onVideoChanged$ = new ReplaySubject<string>();
 
   constructor(private http: HttpClient, private userService: UserService) {}
+
+  changeVideo(videoId: string): void {
+    this.onVideoChanged$.next(videoId);
+  }
+
+  onVideoChanged(): Observable<string> {
+    return this.onVideoChanged$.asObservable();
+  }
 
   getAllVideos(): Observable<any[]> {
     return this.http.get<any>('/api/videos');
@@ -23,6 +31,7 @@ export class VideoService {
   }
 
   favoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
+    this.favorites?.unshift(favoriteDto.video);
     return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
   }
 

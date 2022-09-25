@@ -2,7 +2,7 @@ import { BackgroundService } from './../../services/background.service';
 import { SuggestVideoService } from './../../services/suggest-video.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { Video } from 'src/app/models/video';
 import { VideoService } from 'src/app/services/video.service';
 
@@ -20,6 +20,7 @@ export class MusicComponent implements OnInit {
     private videoService: VideoService,
     private suggestVideoService: SuggestVideoService,
     private backgroundService: BackgroundService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -29,6 +30,10 @@ export class MusicComponent implements OnInit {
         this.getVideoDetail(params['id']);
         this.getSuggestVideo(params['id']);
       });
+
+    this.videoService.onVideoChanged()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((videoId) => this.router.navigate([`/music/${videoId}`]));
   }
 
   getVideoDetail(id: string): void {

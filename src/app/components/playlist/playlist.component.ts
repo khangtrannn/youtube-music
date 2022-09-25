@@ -11,13 +11,22 @@ import { Subject, takeUntil } from 'rxjs';
 export class PlaylistComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
 
-  videos: Video[] = [];
+  playingVideo: Video | undefined;
+  favorites: Video[] = [];
+  isLoading = true;
 
   constructor(private videoService: VideoService) {}
 
   ngOnInit() {
     this.videoService.getAllFavorites().pipe(takeUntil(this.onDestroy$)).subscribe((favorites) => {
-      console.log(favorites);
+      this.favorites = favorites;
+      this.playingVideo = favorites[0];
+      this.isLoading = false;
+    });
+
+    this.videoService.onVideoChanged().pipe(takeUntil(this.onDestroy$)).subscribe((videoId) => {
+      const video = this.favorites.find((favorite) => favorite.id === videoId);
+      this.playingVideo = video;
     });
   }
 }

@@ -1,6 +1,7 @@
+import { VideoService } from 'src/app/services/video.service';
 import { SearchVideoService } from './../../services/search-video.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Video } from 'src/app/models/video';
 import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 
@@ -17,7 +18,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private searchVideoService: SearchVideoService
+    private searchVideoService: SearchVideoService,
+    private videoService: VideoService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -28,10 +31,13 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         takeUntil(this.onDestroy$)
       )
       .subscribe((videos) => {
-
         this.isVideoLoading = false;
         this.videos = videos;
       });
+
+    this.videoService.onVideoChanged()
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((videoId) => this.router.navigate([`/music/${videoId}`]));
   }
 
   loadMore(): void {
