@@ -21,6 +21,10 @@
       <span *ngIf="video?.channel?.title" class="block apple-text">{{ video?.channel?.title }}</span>
     </div>
 
+    <mat-icon
+      (click)="isFavorite = !isFavorite; onToggleFavorite$.next(isFavorite)" class="cursor-pointer fa-beat">
+      {{ isFavorite ? 'favorite' : 'favorite_outlined' }}</mat-icon>
+
     <audio #audio [volume]="0.2" (error)="onVideoError()" (ended)="nextVideo()"
       class="w-full max-w-md h-10 mb-4" autoplay controls preload="metadata"
       [src]="'/api/stream/' + video?.id"></audio>
