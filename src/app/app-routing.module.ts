@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MusicComponent } from './components/music/music.component';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'music/:id',
     component: MusicComponent,
+  },
+  {
+    path: 'playlist',
+    component: PlaylistComponent,
   }
 ];
 

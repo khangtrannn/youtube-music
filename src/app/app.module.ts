@@ -9,11 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BackgroundComponent } from './components/background/background.component';
-import { MusicPlayerComponent } from './components/music/components/music-player/music-player.component';
+import { MusicPlayerComponent } from './share/components/music-player/music-player.component';
 import { MusicComponent } from './components/music/music.component';
 import { SearchResultComponent } from './components/search-result/search-result.component';
 import { SuggestVideoComponent } from './components/suggest-video/suggest-video.component';
@@ -30,6 +31,7 @@ import { ShareModule } from './share/share.module';
     MusicPlayerComponent,
     SuggestVideoComponent,
     BackgroundComponent,
+    PlaylistComponent,
   ],
   imports: [
     BrowserModule,
