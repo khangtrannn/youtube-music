@@ -10,6 +10,7 @@ import { VideoService } from 'src/app/services/video.service';
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss'],
+  providers: [VideoService]
 })
 export class MusicComponent implements OnInit {
   private onDestroy$ = new Subject<void>();

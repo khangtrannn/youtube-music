@@ -6,7 +6,8 @@ import { Subject, takeUntil } from 'rxjs';
 @Component({
   selector: 'app-playlist',
   templateUrl: './playlist.component.html',
-  styleUrls: ['./playlist.component.scss']
+  styleUrls: ['./playlist.component.scss'],
+  providers: [VideoService],
 })
 export class PlaylistComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
@@ -27,6 +28,10 @@ export class PlaylistComponent implements OnInit {
     this.videoService.onVideoChanged().pipe(takeUntil(this.onDestroy$)).subscribe((videoId) => {
       const video = this.favorites.find((favorite) => favorite.id === videoId);
       this.playingVideo = video;
+    });
+
+    this.videoService.onUnfavorite().pipe(takeUntil(this.onDestroy$)).subscribe((videoId) => {
+      this.favorites = this.favorites.filter((favorite) => favorite.id !== videoId);
     });
   }
 }

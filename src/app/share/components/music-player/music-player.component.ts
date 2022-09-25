@@ -51,14 +51,16 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
       .pipe(
         debounceTime(200),
         switchMap((isFavorite) => {
+          const dto = {
+            userId: this.userId!,
+            video: this.video!,
+          };
+
           if (isFavorite) {
-            return this.videoService.favoriteVideo({
-              userId: this.userId!,
-              video: this.video!,
-            });
+            return this.videoService.favoriteVideo(dto);
           }
 
-          return of();
+          return this.videoService.unfavoriteVideo(dto);
         })
       )
       .subscribe();

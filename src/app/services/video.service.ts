@@ -10,7 +10,8 @@ import { Video } from '../models/video';
 })
 export class VideoService {
   private favorites: Video[] | undefined;
-  private onVideoChanged$ = new ReplaySubject<string>();
+  private onVideoChanged$ = new ReplaySubject<string>(1);
+  private onUnfavorite$ = new ReplaySubject<string>(1);
 
   constructor(private http: HttpClient, private userService: UserService) {}
 
@@ -22,6 +23,10 @@ export class VideoService {
     return this.onVideoChanged$.asObservable();
   }
 
+  onUnfavorite(): Observable<string> {
+    return this.onUnfavorite$.asObservable();
+  }
+
   getAllVideos(): Observable<any[]> {
     return this.http.get<any>('/api/videos');
   }
@@ -31,8 +36,19 @@ export class VideoService {
   }
 
   favoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
-    this.favorites?.unshift(favoriteDto.video);
-    return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
+    return this.isFavorite(favoriteDto.video.id).pipe(switchMap((isFavorite) => {
+      if (isFavorite) {
+        return of();
+      }
+
+      this.favorites?.unshift(favoriteDto.video);
+      return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
+    }));
+  }
+
+  unfavoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
+    this.onUnfavorite$.next(favoriteDto.video.id);
+    return this.http.post<any>(`/api/videos/unfavorite`, favoriteDto);
   }
 
   getAllFavorites(): Observable<Video[]> {
@@ -52,14 +68,6 @@ export class VideoService {
   }
 
   isFavorite(videoId: string): Observable<boolean> {
-    return this.getAllFavorites().pipe(
-      switchMap((favorites) =>
-      {
-        console.log(favorites);
-        return of(!!favorites.find((favorite) => favorite.id === videoId))
-
-      }
-      )
-    );
+    return this.getAllFavorites().pipe(switchMap((favorites) => of(!!favorites.find((favorite) => favorite.id === videoId))));
   }
 }

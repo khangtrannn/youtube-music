@@ -9,6 +9,7 @@ import { Subject, switchMap, takeUntil, tap } from 'rxjs';
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
+  providers: [VideoService],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
