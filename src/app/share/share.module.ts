@@ -6,19 +6,17 @@ import { VideoCardComponent } from './components/video-card/video-card.component
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MatIconModule } from '@angular/material/icon';
 import { VideoListComponent } from './components/video-list/video-list.component';
+import { RouterModule } from '@angular/router';
 
-const declarations = [
-  VideoCardComponent,
-  ProxyImagePipe,
-  VideoListComponent,
-];
+const declarations = [VideoCardComponent, ProxyImagePipe, VideoListComponent];
 
 @NgModule({
   imports: [
     CommonModule,
     InfiniteScrollModule,
     MatIconModule,
-    NgxSkeletonLoaderModule.forRoot({ animation: false, theme: { 'background-color': '#992929' } })
+    RouterModule,
+    NgxSkeletonLoaderModule,
   ],
   declarations: [...declarations],
   exports: [...declarations],

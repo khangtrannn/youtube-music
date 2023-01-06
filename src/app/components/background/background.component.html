@@ -1,6 +1,5 @@
 <div class="background">
   <div class="backdrop"></div>
-  <img *ngIf="!background" class="background-image" src="/assets/images/default-background.jpeg" alt="Music Background">
 
   <ng-container *ngIf="background">
     <img [@inOutAnimation] *ngFor="let image of [background]" class="background-image" [src]="image | proxyImage | async" alt="Music Background">

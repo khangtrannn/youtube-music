@@ -8,32 +8,6 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$music-primary: mat.define-palette(mat.$indigo-palette);
-$music-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$music-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$music-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $music-primary,
-      accent: $music-accent,
-      warn: $music-warn,
-    ),
-  )
-);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($music-theme);
-
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
 @import "./tailwind.scss";
@@ -51,8 +25,7 @@ body {
   padding: 0;
   min-height: 100vh;
   overflow: hidden;
-  background-color: #181818;
-  // background-color: rgba(0,0,0,0.99);
+  background: #0f0f0f;
 }
 
 a {
@@ -70,7 +43,7 @@ button {
 }
 
 ngx-skeleton-loader span.skeleton-loader {
-  background-color: #303030 !important;
+  background: rgba(255, 255, 255, 0.1) !important;
 }
 
 .custom-scroll::-webkit-scrollbar {

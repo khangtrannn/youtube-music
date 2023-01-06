@@ -47,6 +47,7 @@ import { ShareModule } from './share/share.module';
     NgxSkeletonLoaderModule,
     SocialLoginModule,
     MatMenuModule,
+    NgxSkeletonLoaderModule.forRoot({ animation: false }),
   ],
   providers: [
     {
@@ -65,14 +66,14 @@ import { ShareModule } from './share/share.module';
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
               '428470900096-ms599qb9oosqt4g7btrdvlo1r3n5vk5h.apps.googleusercontent.com'
-            )
+            ),
           },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
-    }
+    },
   ],
   bootstrap: [AppComponent],
 })

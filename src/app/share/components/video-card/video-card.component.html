@@ -1,9 +1,9 @@
-<ng-container *ngIf="video; else skeleton">
-  <div class="video" (click)="onTouch()">
+<ng-container *ngIf="video; else loading">
+  <a class="video" [routerLink]="['music', video.id]">
     <div class="thumbnail-placeholder">
       <div class="thumbnail-container">
         <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
-          <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
+          <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '100%', height: '100%', 'border-radius.px': 12 }"></ngx-skeleton-loader>
           <img *ngIf="data.image" [src]="data.image" alt="Video thumbnail" />
         </ng-container>
 
@@ -13,10 +13,8 @@
 
     <div class="flex gap-2 mt-3">
       <ng-container *ngIf="{ image: video.channel.thumbnail | proxyImage | async } as data">
-        <div>
-          <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
-          <img *ngIf="data.image" class="mt-1 w-9 h-9 rounded-[50%]" [src]="data.image">
-        </div>
+        <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
+        <img *ngIf="data.image" class="mt-1 w-9 h-9 rounded-[50%]" [src]="data.image">
       </ng-container>
 
       <div class="meta min-h-[80px]">
@@ -26,22 +24,22 @@
         <span *ngIf="video.publishedTime" class="text">{{ video.publishedTime }}</span>
       </div>
     </div>
-  </div>
+  </a>
 </ng-container>
 
-<ng-template #skeleton>
+<ng-template #loading>
   <div class="video">
     <div class="thumbnail-placeholder">
       <div class="thumbnail-container">
-        <ngx-skeleton-loader [theme]="{ width: '100%', height: '100%', 'border-radius': 0 }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader [theme]="{ width: '100%', height: '100%', 'border-radius.px': 12 }"></ngx-skeleton-loader>
       </div>
     </div>
 
     <div class="flex gap-3 mt-3 min-h-[80px]">
-      <ngx-skeleton-loader [theme]="{ 'margin-top.px': 4, width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
+      <ngx-skeleton-loader [theme]="{ width: '36px', height: '36px', 'border-radius': '50%' }"></ngx-skeleton-loader>
       <div class="w-full">
-        <ngx-skeleton-loader [theme]="{ width: '90%', height: '20px' }"></ngx-skeleton-loader>
-        <ngx-skeleton-loader [theme]="{ width: '60%', height: '20px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader class="block h-4" [theme]="{ 'border-radius.px': 2, width: '90%', height: '16px' }"></ngx-skeleton-loader>
+        <ngx-skeleton-loader class="block h-4 mt-3" [theme]="{ 'border-radius.px': 2, width: '60%', height: '16px' }"></ngx-skeleton-loader>
       </div>
     </div>
   </div>
