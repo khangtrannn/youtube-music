@@ -21,11 +21,13 @@ import { SuggestVideoComponent } from './components/suggest-video/suggest-video.
 import { StartupService } from './services/startup.service';
 import { HeaderComponent } from './share/components/header/header.component';
 import { ShareModule } from './share/share.module';
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomepageComponent,
     SearchResultComponent,
     MusicComponent,
     MusicPlayerComponent,
