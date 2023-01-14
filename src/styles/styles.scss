@@ -49,23 +49,14 @@ ngx-skeleton-loader span.skeleton-loader {
 
 .custom-scroll::-webkit-scrollbar {
   width: 15px;
-  height: 5px;
+  height: 0;
 }
 
 .custom-scroll::-webkit-scrollbar-thumb {
-  height: 56px;
   border-radius: 8px;
   border: 4px solid transparent;
   background-clip: content-box;
-  background-color: #717171 !important;
-}
-
-.custom-scroll::-webkit-scrollbar-thumb {
-  height: 56px;
-  border-radius: 8px;
-  border: 4px solid transparent;
-  background-clip: content-box;
-  background-color: hsl(0, 0%, 67%);
+  background-color: #717171;
 }
 
 .time-status {

@@ -1,11 +1,16 @@
 import { Channel } from "./channel";
 
-export interface Video {
-  id: string;
-  title: string;
-  duration: string;
-  view: string;
-  publishedTime: string;
-  thumbnail: string;
-  channel: Channel;
+export class Video {
+  id!: string;
+  title!: string;
+  duration!: string;
+  view!: string;
+  publishedTime!: string;
+  thumbnail!: string;
+  channel!: Channel;
+  loading = false;
+}
+
+export class VideoLoading extends Video {
+  override loading = true;
 }

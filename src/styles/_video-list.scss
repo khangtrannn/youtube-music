@@ -5,12 +5,10 @@
 
   display: grid;
   grid-template-columns: repeat(var(--columns-per-row), 1fr);
+  grid-template-rows: 290px;
   gap: 2rem 1rem;
   margin: 0 auto;
-
-  &:last-child {
-    margin-bottom: 375px;
-  }
+  height: 85vh;
 
   @include tablet() {
     --columns-per-row: 3;

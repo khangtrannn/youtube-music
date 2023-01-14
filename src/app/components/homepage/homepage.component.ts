@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Subject, switchMap, map, startWith, tap, BehaviorSubject } from 'rxjs';
-import { Video } from 'src/app/models/video';
+import { Component } from '@angular/core';
+import { startWith } from 'rxjs';
 import { SearchVideoService } from 'src/app/services/search-video.service';
+import { VideoService } from 'src/app/services/video.service';
 
 const KEY_WORD = 'study with me';
 
@@ -10,31 +10,13 @@ const KEY_WORD = 'study with me';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
 })
-export class HomepageComponent implements OnInit {
-  private onDestroy$ = new Subject<void>();
+export class HomepageComponent {
+  videos$ = this.searchVideoService
+    .searchVideo(KEY_WORD)
+    .pipe(startWith(this.videoService.getSkeletons()));
 
-  // videos$ = this.searchVideoService
-  //   .searchVideo(KEY_WORD)
-  //   .pipe(startWith(new Array(12)));
-
-  videos$ = new Subject<Video[]>();
-
-  constructor(private searchVideoService: SearchVideoService) {}
-
-  ngOnInit(): void {}
-
-  loadMore(): void {
-    // this.videos$ = this.videos$.pipe(
-    //   switchMap((currentVideos) =>
-    //     this.searchVideoService
-    //       .searchVideoContinuation()
-    //       .pipe(map((newVideos) => [...currentVideos, ...newVideos]))
-    //   )
-    // );
-  }
-
-  ngOnDestroy(): void {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
-  }
+  constructor(
+    private videoService: VideoService,
+    private searchVideoService: SearchVideoService
+  ) {}
 }

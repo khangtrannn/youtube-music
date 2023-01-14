@@ -1,12 +1,9 @@
-<ng-container *ngIf="videos$ | async as videos">
-  <div
-    infiniteScroll
-    [infiniteScrollDistance]="4"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="loadMore()"
-    [scrollWindow]="false"
-    class="h-[100vh] video-list overflow-scroll custom-scroll"
-  >
-    <app-video-card *ngFor="let video of videos" [video]="video"></app-video-card>
-  </div>
-</ng-container>
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="4"
+  [infiniteScrollThrottle]="50"
+  [scrollWindow]="false"
+  class="video-list overflow-scroll custom-scroll"
+>
+  <app-video-card *ngFor="let video of videos$ | async" [video]="video"></app-video-card>
+</div>

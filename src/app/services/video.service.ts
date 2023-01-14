@@ -3,7 +3,7 @@ import { FavoriteDto } from './../dto/favorite.dto';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, ReplaySubject, switchMap, tap } from 'rxjs';
-import { Video } from '../models/video';
+import { Video, VideoLoading } from '../models/video';
 
 @Injectable({
   providedIn: 'root',
@@ -36,14 +36,16 @@ export class VideoService {
   }
 
   favoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
-    return this.isFavorite(favoriteDto.video.id).pipe(switchMap((isFavorite) => {
-      if (isFavorite) {
-        return of();
-      }
+    return this.isFavorite(favoriteDto.video.id).pipe(
+      switchMap((isFavorite) => {
+        if (isFavorite) {
+          return of();
+        }
 
-      this.favorites?.unshift(favoriteDto.video);
-      return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
-    }));
+        this.favorites?.unshift(favoriteDto.video);
+        return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
+      })
+    );
   }
 
   unfavoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
@@ -68,6 +70,16 @@ export class VideoService {
   }
 
   isFavorite(videoId: string): Observable<boolean> {
-    return this.getAllFavorites().pipe(switchMap((favorites) => of(!!favorites.find((favorite) => favorite.id === videoId))));
+    return this.getAllFavorites().pipe(
+      switchMap((favorites) =>
+        of(!!favorites.find((favorite) => favorite.id === videoId))
+      )
+    );
+  }
+
+  getSkeletons(): VideoLoading[] {
+    return Array(12)
+      .fill(-1)
+      .map(() => new VideoLoading());
   }
 }
