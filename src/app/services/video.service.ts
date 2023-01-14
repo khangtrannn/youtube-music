@@ -77,6 +77,12 @@ export class VideoService {
     );
   }
 
+  getNumberVideosPerRow(): number {
+    return +getComputedStyle(
+      document.querySelector('.video-list') as Element
+    ).getPropertyValue('--columns-per-row');
+  }
+
   getSkeletons(): VideoLoading[] {
     return Array(12)
       .fill(-1)
