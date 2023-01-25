@@ -69,6 +69,8 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const video = changes['video']?.currentValue;
     if (video) {
+      document.title = this.video?.title as string;
+
       this.videoService
         .isFavorite(video.id)
         .pipe(takeUntil(this.onDestroy$))

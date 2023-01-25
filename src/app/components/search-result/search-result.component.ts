@@ -1,54 +1,65 @@
-import { VideoService } from 'src/app/services/video.service';
-import { SearchVideoService } from './../../services/search-video.service';
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Video } from 'src/app/models/video';
-import { Subject, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { Video, VideoLoading } from 'src/app/models/video';
+import { SearchVideoService } from 'src/app/services/search-video.service';
+import { VideoService } from 'src/app/services/video.service';
+
+const KEY_WORD = 'study with me';
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
-  providers: [VideoService],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
-  private onDestroy$ = new Subject<void>();
-  isVideoLoading = true;
+  private destroy$ = new Subject<void>();
+  private videos: Video[] = [];
 
-  videos: Video[] = [];
+  numberVideosPerRow!: number;
+  skeletons = Array(12)
+    .fill(-1)
+    .map(() => new VideoLoading());
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private searchVideoService: SearchVideoService,
     private videoService: VideoService,
-    private router: Router,
+    private searchVideoService: SearchVideoService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams
-      .pipe(
-        tap(() => this.isVideoLoading = true),
-        switchMap((params) => this.searchVideoService.searchVideo(params['keyword'])),
-        takeUntil(this.onDestroy$)
+    this.searchVideoService
+      .searchVideo(
+        this.activatedRoute.snapshot.queryParamMap.get('keyword') || KEY_WORD
       )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((videos) => {
-        this.isVideoLoading = false;
+        this.skeletons = [];
         this.videos = videos;
+        this.numberVideosPerRow = this.videoService.getNumberVideosPerRow();
       });
-
-    this.videoService.onVideoChanged()
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((videoId) => this.router.navigate([`/music/${videoId}`]));
   }
 
   loadMore(): void {
+    this.skeletons = Array(this.numberVideosPerRow * 2)
+      .fill(-1)
+      .map(() => new VideoLoading());
+
     this.searchVideoService
       .searchVideoContinuation()
+      .pipe(takeUntil(this.destroy$))
       .subscribe((videos) => this.videos.push(...videos));
   }
 
+  getDisplayedVideos(): Video[] {
+    return this.videos.slice(
+      0,
+      this.videos.length - (this.videos.length % this.numberVideosPerRow)
+    );
+  }
+
   ngOnDestroy(): void {
-    this.onDestroy$.next();
-    this.onDestroy$.complete();
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

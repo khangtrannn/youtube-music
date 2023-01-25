@@ -1,5 +1,5 @@
 <ng-container *ngIf="video && !video.loading; else loading">
-  <a class="video" [routerLink]="['music', video.id]">
+  <a class="video" [routerLink]="['/music', video.id]">
     <div class="thumbnail-placeholder">
       <div class="thumbnail-container">
         <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
