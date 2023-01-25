@@ -4,10 +4,11 @@
       <div class="thumbnail-container">
         <ng-container *ngIf="{ image: video.thumbnail | proxyImage | async } as data">
           <ngx-skeleton-loader *ngIf="!data.image" [theme]="{ width: '100%', height: '100%', 'border-radius.px': 12 }"></ngx-skeleton-loader>
-          <img *ngIf="data.image" [src]="data.image" alt="Video thumbnail" />
+          <ng-container *ngIf="data.image">
+            <img [src]="data.image" alt="Video thumbnail" />
+            <span class="time-status">{{ video.duration }}</span>
+          </ng-container>
         </ng-container>
-
-        <span class="time-status">{{ video.duration }}</span>
       </div>
     </div>
 

@@ -15,9 +15,10 @@ export class HomepageComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private videos: Video[] = [];
 
-  displayedVideos: Video[] = [];
   numberVideosPerRow!: number;
-  skeletons = Array(12).fill(-1).map(() => new VideoLoading());
+  skeletons = Array(12)
+    .fill(-1)
+    .map(() => new VideoLoading());
 
   constructor(
     private videoService: VideoService,
@@ -32,23 +33,24 @@ export class HomepageComponent implements OnInit, OnDestroy {
         this.skeletons = [];
         this.videos = videos;
         this.numberVideosPerRow = this.videoService.getNumberVideosPerRow();
-        this.setDisplayedVideos();
       });
   }
 
   loadMore(): void {
-    this.skeletons = Array(this.numberVideosPerRow * 2).fill(-1).map(() => new VideoLoading());
+    this.skeletons = Array(this.numberVideosPerRow * 2)
+      .fill(-1)
+      .map(() => new VideoLoading());
     this.searchVideoService
       .searchVideoContinuation()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((videos) => {
-        this.videos.push(...videos);
-        this.setDisplayedVideos();
-      });
+      .subscribe((videos) => this.videos.push(...videos));
   }
 
-  private setDisplayedVideos(): void {
-    this.displayedVideos = this.videos.slice(0, this.videos.length - (this.videos.length % this.numberVideosPerRow));
+  getDisplayedVideos(): Video[] {
+    return this.videos.slice(
+      0,
+      this.videos.length - (this.videos.length % this.numberVideosPerRow)
+    );
   }
 
   ngOnDestroy(): void {
