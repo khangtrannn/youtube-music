@@ -12,7 +12,7 @@ export class SuggestVideoService {
   private visitorData!: string;
   private isMore = true;
 
-  private suggestVideos$ = new ReplaySubject<Video[]>(1);
+  private suggestVideos: Video[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -23,13 +23,9 @@ export class SuggestVideoService {
         tap((response) => {
           this.visitorData = response.visitorData;
           this.continuation = response.continuation;
-          this.suggestVideos$.next(response.videos);
+          this.suggestVideos = response.videos;
         })
       );
-  }
-
-  getSuggestion(): Observable<Video[]> {
-    return this.suggestVideos$.asObservable();
   }
 
   getSuggestVideosContinuation(): Observable<Video[]> {
@@ -50,13 +46,8 @@ export class SuggestVideoService {
       );
   }
 
-  getNextVideo(): Observable<Video> {
-    return this.getSuggestion().pipe(
-      switchMap(
-        async (suggestVideos) =>
-          suggestVideos[Math.floor(Math.random() * suggestVideos.length)]
-      )
-    );
+  getNextVideo(): Video {
+    return this.suggestVideos[0];
   }
 
   hasMoreSuggestion(): boolean {

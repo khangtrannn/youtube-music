@@ -31,10 +31,6 @@ export class MusicComponent implements OnInit {
         this.getVideoDetail(params['id']);
         this.getSuggestVideo(params['id']);
       });
-
-    this.videoService.onVideoChanged()
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((videoId) => this.router.navigate([`/music/${videoId}`]));
   }
 
   getVideoDetail(id: string): void {

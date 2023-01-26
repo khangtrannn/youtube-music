@@ -16,13 +16,13 @@ export class SuggestVideoComponent implements OnInit {
   constructor(private suggestVideoService: SuggestVideoService) {}
 
   ngOnInit(): void {
-    this.suggestVideoService
-      .getSuggestion()
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe((videos) => {
-        this.isVideoLoading = false;
-        this.videos = videos;
-      });
+    // this.suggestVideoService
+    //   .getSuggestion()
+    //   .pipe(takeUntil(this.onDestroy$))
+    //   .subscribe((videos) => {
+    //     this.isVideoLoading = false;
+    //     this.videos = videos;
+    //   });
   }
 
   loadMore(): void {
