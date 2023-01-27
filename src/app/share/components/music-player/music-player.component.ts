@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -21,9 +20,7 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './music-player.component.html',
   styleUrls: ['./music-player.component.scss'],
 })
-export class MusicPlayerComponent
-  implements OnInit, OnDestroy, AfterViewInit, OnChanges
-{
+export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   private onDestroy$ = new Subject<void>();
   onToggleFavorite$ = new Subject<boolean>();
 
@@ -84,10 +81,6 @@ export class MusicPlayerComponent
   nextVideo(): void {
     const suggestVideo = this.suggestVideoService.getNextVideo();
     this.router.navigate([`/music/${suggestVideo.id}`]);
-  }
-
-  ngAfterViewInit(): void {
-    this.audio.nativeElement.currentTime = 210;
   }
 
   ngOnDestroy(): void {

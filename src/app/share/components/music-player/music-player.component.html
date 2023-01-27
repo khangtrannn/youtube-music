@@ -26,7 +26,7 @@
       (click)="isFavorite = !isFavorite; onToggleFavorite$.next(isFavorite)" class="cursor-pointer fa-beat">
       {{ isFavorite ? 'favorite' : 'favorite_outlined' }}</mat-icon>
 
-    <audio #audio [volume]="0.2" (ended)="nextVideo()"
+    <audio #audio *ngIf="video?.id" [volume]="0.2" (ended)="nextVideo()"
       class="w-full max-w-md h-10 mb-4" autoplay controls preload="metadata"
       [src]="'/api/stream/v2/' + video?.id"></audio>
   </div>
