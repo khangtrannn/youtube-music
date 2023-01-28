@@ -1,3 +1,5 @@
+import { FavoriteService } from 'src/app/services/favorite.service';
+import { UserService } from './../../../services/user.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Video } from 'src/app/models/video';
 
@@ -9,9 +11,13 @@ import { Video } from 'src/app/models/video';
 export class VideoCardComponent {
   @Input() video!: Video;
   @Input() routerLink = '';
-  @Input() displayFavoriteIcon = false;
 
   @Output() onFavorite = new EventEmitter<void>();
+
+  constructor(
+    public userService: UserService,
+    public favoriteService: FavoriteService
+  ) {}
 
   onFavoriteClick(): void {
     this.onFavorite.emit();

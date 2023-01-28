@@ -48,24 +48,6 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
           this.userId = user.id;
         }
       });
-
-    // this.onToggleFavorite$
-    //   .pipe(
-    //     debounceTime(200),
-    //     switchMap((isFavorite) => {
-    //       const dto = {
-    //         userId: this.userId!,
-    //         video: this.video!,
-    //       };
-
-    //       if (isFavorite) {
-    //         return this.videoService.favoriteVideo(dto);
-    //       }
-
-    //       return this.videoService.unfavoriteVideo(dto);
-    //     })
-    //   )
-    //   .subscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

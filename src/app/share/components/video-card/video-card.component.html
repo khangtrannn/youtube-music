@@ -16,7 +16,9 @@
         <ng-container *ngIf="data.image">
           <img [src]="data.image" alt="Video thumbnail" />
           <span class="time-status">{{ video.duration }}</span>
-          <mat-icon *ngIf="displayFavoriteIcon" (click)="onFavoriteClick()" class="z-30 cursor-pointer absolute right-1 top-1 shadow-2xl text-white">favorite</mat-icon>
+          <ng-container *ngIf="userService.getUser() | async">
+            <mat-icon (click)="onFavoriteClick()" class="z-30 cursor-pointer absolute right-1 top-1 shadow-2xl text-white">{{ (favoriteService.isFavorite(video.id) | async) ? 'favorite' : 'favorite_outlined' }}</mat-icon>
+          </ng-container>
         </ng-container>
       </ng-container>
     </div>

@@ -6,29 +6,32 @@ import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 export class FavoriteService {
-  constructor(private http: HttpClient, private userService: UserService) {}
+  favorites$ = new ReplaySubject<Video[]>(1);
 
-  getAllFavorites(): Observable<Video[]> {
-    return this.userService
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.userService
       .getUser()
       .pipe(
         switchMap((user) =>
           this.http.get<Video[]>(`/api/videos/favorite/${user.id}`)
         )
-      );
+      )
+      .subscribe((favorites) => this.favorites$.next(favorites));
+  }
+
+  getAllFavorites(): Observable<Video[]> {
+    return this.favorites$.asObservable();
   }
 
   removeFromFavorite(video: Video): Observable<void> {
-    return this.userService
-      .getUser()
-      .pipe(
-        switchMap((user) =>
-          this.http.post<void>(`/api/videos/unfavorite`, {
-            video,
-            userId: user.id,
-          })
-        )
-      );
+    return this.userService.getUser().pipe(
+      switchMap((user) =>
+        this.http.post<void>(`/api/videos/unfavorite`, {
+          video,
+          userId: user.id,
+        })
+      )
+    );
   }
 
   isFavorite(videoId: string): Observable<boolean> {

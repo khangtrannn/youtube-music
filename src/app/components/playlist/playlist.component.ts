@@ -12,6 +12,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
   providers: [VideoService],
   animations: [
     trigger('simpleFadeAnimation', [
+      transition(':enter', [style({ opacity: 0 }), animate(400)]),
       transition(
         ':leave',
         animate(
