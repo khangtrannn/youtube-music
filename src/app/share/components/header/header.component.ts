@@ -1,9 +1,5 @@
-import { LocalStorageService } from './../../../services/local-storage.service';
-import {
-  GoogleLoginProvider,
-  SocialAuthService,
-  SocialUser,
-} from '@abacritt/angularx-social-login';
+import { UserService } from './../../../services/user.service';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -18,13 +14,16 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private readonly _authService: SocialAuthService,
-    private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   ngOnInit() {
     this._authService.authState.subscribe((user) => {
-      this.user = user;
+      if (user) {
+        this.user = user;
+        this.userService.setUser(user);
+      }
     });
   }
 

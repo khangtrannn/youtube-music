@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Video } from 'src/app/models/video';
 
 @Component({
@@ -7,5 +7,13 @@ import { Video } from 'src/app/models/video';
   styleUrls: ['./video-card.component.scss'],
 })
 export class VideoCardComponent {
-  @Input() video: Video | undefined;
+  @Input() video!: Video;
+  @Input() routerLink = '';
+  @Input() displayFavoriteIcon = false;
+
+  @Output() onFavorite = new EventEmitter<void>();
+
+  onFavoriteClick(): void {
+    this.onFavorite.emit();
+  }
 }

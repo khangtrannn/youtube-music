@@ -49,7 +49,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     NgxSkeletonLoaderModule,
     SocialLoginModule,
     MatMenuModule,
-    NgxSkeletonLoaderModule.forRoot({ animation: false }),
+    NgxSkeletonLoaderModule.forRoot({ animation: 'progress-dark' }),
   ],
   providers: [
     {

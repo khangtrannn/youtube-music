@@ -15,12 +15,11 @@
 
   <div class="block absolute right-4 top-0">
     <ng-container *ngIf="user; else googleLogin">
-      <div [matMenuTriggerFor]="menu" style="--c: linear-gradient(225deg, #2196f3 0%, #b3077f 100%)" class="avatar-gradient cursor-pointer">
-        <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
-        <mat-menu class="" #menu="matMenu">
-          <button [routerLink]="'/playlist'" mat-menu-item>Playlist</button>
-          <button mat-menu-item>Logout</button>
-        </mat-menu>
+      <div class="flex items-center gap-4">
+        <mat-icon routerLink="/playlist" class="cursor-pointer fa-beat text-white !w-7 !h-7 text-[28px]">favorite_outlined</mat-icon>
+        <div class="avatar-gradient" style="--c: linear-gradient(225deg, #2196f3 0%, #b3077f 100%)">
+          <img class="w-11 h-11 rounded-[50%] mr-3" referrerpolicy="no-referrer" [src]="user.photoUrl" [alt]="user.firstName + ' ' + user.lastName" />
+        </div>
       </div>
     </ng-container>
   </div>

@@ -10,22 +10,7 @@ import { Video, VideoLoading } from '../models/video';
 })
 export class VideoService {
   private favorites: Video[] | undefined;
-  private onVideoChanged$ = new ReplaySubject<string>(1);
-  private onUnfavorite$ = new ReplaySubject<string>(1);
-
   constructor(private http: HttpClient, private userService: UserService) {}
-
-  changeVideo(videoId: string): void {
-    this.onVideoChanged$.next(videoId);
-  }
-
-  onVideoChanged(): Observable<string> {
-    return this.onVideoChanged$.asObservable();
-  }
-
-  onUnfavorite(): Observable<string> {
-    return this.onUnfavorite$.asObservable();
-  }
 
   getAllVideos(): Observable<any[]> {
     return this.http.get<any>('/api/videos');
@@ -35,23 +20,18 @@ export class VideoService {
     return this.http.get<Video>(`/api/videos/detail/${id}`);
   }
 
-  favoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
-    return this.isFavorite(favoriteDto.video.id).pipe(
-      switchMap((isFavorite) => {
-        if (isFavorite) {
-          return of();
-        }
+  // favoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
+  //   return this.isFavorite(favoriteDto.video.id).pipe(
+  //     switchMap((isFavorite) => {
+  //       if (isFavorite) {
+  //         return of();
+  //       }
 
-        this.favorites?.unshift(favoriteDto.video);
-        return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
-      })
-    );
-  }
-
-  unfavoriteVideo(favoriteDto: FavoriteDto): Observable<any> {
-    this.onUnfavorite$.next(favoriteDto.video.id);
-    return this.http.post<any>(`/api/videos/unfavorite`, favoriteDto);
-  }
+  //       this.favorites?.unshift(favoriteDto.video);
+  //       return this.http.post<any>(`/api/videos/favorite`, favoriteDto);
+  //     })
+  //   );
+  // }
 
   getAllFavorites(): Observable<Video[]> {
     if (this.favorites) {
