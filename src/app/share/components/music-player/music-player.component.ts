@@ -11,6 +11,7 @@ import {
 import { Router } from '@angular/router';
 import { debounceTime, of, Subject, switchMap, takeUntil } from 'rxjs';
 import { Video } from 'src/app/models/video';
+import { FavoriteService } from 'src/app/services/favorite.service';
 import { VideoService } from 'src/app/services/video.service';
 import { SuggestVideoService } from '../../../services/suggest-video.service';
 import { UserService } from '../../../services/user.service';
@@ -34,7 +35,8 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
     private userService: UserService,
     private suggestVideoService: SuggestVideoService,
     private router: Router,
-    private videoService: VideoService
+    private videoService: VideoService,
+    private favoriteService: FavoriteService
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +73,7 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
     if (video) {
       document.title = this.video?.title as string;
 
-      this.videoService
+      this.favoriteService
         .isFavorite(video.id)
         .pipe(takeUntil(this.onDestroy$))
         .subscribe((isFavorite) => (this.isFavorite = isFavorite));

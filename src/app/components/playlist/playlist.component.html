@@ -1,13 +1,11 @@
 <!-- <app-music-player class="block mb-8" [video]="playingVideo"></app-music-player> -->
 
-<ng-container *ngIf="{ favorites: favorites$ | async } as data">
-  <div class="video-list overflow-scroll custom-scroll">
-    <ng-container *ngIf="!data.favorites">
-      <app-video-card *ngFor="let skeleton of videoService.getSkeletons()" [video]="skeleton"></app-video-card>
-    </ng-container>
+<div class="video-list overflow-scroll custom-scroll">
+  <ng-container *ngIf="isLoading">
+    <app-video-card *ngFor="let skeleton of videoService.getSkeletons()" [video]="skeleton"></app-video-card>
+  </ng-container>
 
-    <ng-container *ngIf="data.favorites as favorites">
-      <app-video-card *ngFor="let video of favorites" (onFavorite)="removeFromFavorite(video.id)" [displayFavoriteIcon]="true" [video]="video"></app-video-card>
-    </ng-container>
-  </div>
-</ng-container>
+  <ng-container *ngIf="!isLoading">
+    <app-video-card [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" (onFavorite)="removeFromFavorite(i, video)" [displayFavoriteIcon]="true" [video]="video"></app-video-card>
+  </ng-container>
+</div>
