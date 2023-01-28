@@ -6,6 +6,6 @@
   </ng-container>
 
   <ng-container *ngIf="!isLoading">
-    <app-video-card [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" (onFavorite)="removeFromFavorite(i, video)" [video]="video"></app-video-card>
+    <app-video-card [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" [video]="video"></app-video-card>
   </ng-container>
 </div>

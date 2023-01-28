@@ -1,10 +1,16 @@
 <ng-container *ngIf="!video.loading; else loading">
-  <a *ngIf="routerLink" class="video" [routerLink]="routerLink">
-    <ng-container *ngTemplateOutlet="videoTemplate"></ng-container>
-  </a>
+  <div class="relative">
+    <a *ngIf="routerLink" class="video" [routerLink]="routerLink">
+      <ng-container *ngTemplateOutlet="videoTemplate"></ng-container>
+    </a>
 
-  <div *ngIf="!routerLink" class="video">
-    <ng-container *ngTemplateOutlet="videoTemplate"></ng-container>
+    <div *ngIf="!routerLink" class="video">
+      <ng-container *ngTemplateOutlet="videoTemplate"></ng-container>
+    </div>
+
+    <div (click)="$event.stopImmediatePropagation(); onToggleFavorite(video)" class="cursor-pointer absolute right-2 top-1 shadow-2xl" *ngIf="userService.getUser() | async">
+      <mat-icon class="z-30 text-white">{{ (favoriteService.isFavorite(video.id) | async) ? 'favorite' : 'favorite_outlined' }}</mat-icon>
+    </div>
   </div>
 </ng-container>
 
@@ -16,9 +22,6 @@
         <ng-container *ngIf="data.image">
           <img [src]="data.image" alt="Video thumbnail" />
           <span class="time-status">{{ video.duration }}</span>
-          <ng-container *ngIf="userService.getUser() | async">
-            <mat-icon (click)="onFavoriteClick()" class="z-30 cursor-pointer absolute right-1 top-1 shadow-2xl text-white">{{ (favoriteService.isFavorite(video.id) | async) ? 'favorite' : 'favorite_outlined' }}</mat-icon>
-          </ng-container>
         </ng-container>
       </ng-container>
     </div>

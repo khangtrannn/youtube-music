@@ -48,14 +48,6 @@ export class PlaylistComponent implements OnInit, OnDestroy {
       });
   }
 
-  removeFromFavorite(index: number, video: Video): void {
-    this.favorites.splice(index, 1);
-    this.favoriteService
-      .removeFromFavorite(video)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe();
-  }
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
