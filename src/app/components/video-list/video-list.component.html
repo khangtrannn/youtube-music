@@ -1,0 +1,12 @@
+<div
+  #videoList
+  infiniteScroll
+  [infiniteScrollThrottle]="50"
+  [infiniteScrollDistance]="1"
+  [scrollWindow]="false"
+  (scrolled)="loadMore()"
+  class="video-list overflow-scroll custom-scroll"
+>
+  <app-video-card *ngFor="let video of getDisplayedVideos()" [routerLink]="'/music/' + video.id" [video]="video"></app-video-card>
+  <app-video-card *ngFor="let skeleton of skeletons" [video]="skeleton"></app-video-card>
+</div>

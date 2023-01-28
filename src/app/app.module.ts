@@ -22,6 +22,7 @@ import { StartupService } from './services/startup.service';
 import { HeaderComponent } from './share/components/header/header.component';
 import { ShareModule } from './share/share.module';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { VideoListComponent } from './components/video-list/video-list.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     SuggestVideoComponent,
     BackgroundComponent,
     PlaylistComponent,
+    VideoListComponent,
   ],
   imports: [
     BrowserModule,
