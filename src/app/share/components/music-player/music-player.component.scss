@@ -20,3 +20,13 @@
     }
   }
 }
+
+:host {
+  ::ng-deep {
+    ng-switchery {
+      .checkbox {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

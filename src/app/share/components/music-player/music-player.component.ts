@@ -35,10 +35,10 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   isFavorite = false;
   userId: string | undefined;
 
+  loop = false;
+
   constructor(
     private userService: UserService,
-    private suggestVideoService: SuggestVideoService,
-    private router: Router,
     private favoriteService: FavoriteService
   ) {}
 
@@ -66,6 +66,11 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   nextVideo(): void {
+    if (this.loop) {
+      this.audio.nativeElement.play();
+      return;
+    }
+
     this.onNextVideo.emit();
   }
 

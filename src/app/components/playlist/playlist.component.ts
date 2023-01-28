@@ -5,6 +5,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Video } from 'src/app/models/video';
 import { trigger, style, transition, animate } from '@angular/animations';
 import { panelInOut } from 'src/app/share/animations/panelAnimation';
+import { BackgroundService } from 'src/app/services/background.service';
 
 @Component({
   selector: 'app-playlist',
@@ -33,6 +34,7 @@ export class PlaylistComponent {
 
   constructor(
     public videoService: VideoService,
-    public favoriteService: FavoriteService
+    public favoriteService: FavoriteService,
+    public backgroundService: BackgroundService
   ) {}
 }

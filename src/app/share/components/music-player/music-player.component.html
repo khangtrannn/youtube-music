@@ -21,13 +21,19 @@
       <span *ngIf="video?.channel?.title" class="block apple-text">{{ video?.channel?.title }}</span>
     </div>
 
-    <mat-icon
-      *ngIf="userId && video"
-      (click)="isFavorite = !isFavorite; onToggleFavorite$.next(isFavorite)" class="cursor-pointer fa-beat">
-      {{ isFavorite ? 'favorite' : 'favorite_outlined' }}</mat-icon>
+    <div class="flex items-center gap-7">
+      <ng-switchery *ngIf="video?.id" class="block apple-text !text-sm !text-[#f5f5f7] !font-medium" size="switchery-sm" [(ngModel)]="loop" onLabel="Loop"></ng-switchery>
+
+      <mat-icon
+        *ngIf="userId && video"
+        (click)="isFavorite = !isFavorite; onToggleFavorite$.next(isFavorite)" class="cursor-pointer fa-beat">
+        {{ isFavorite ? 'favorite' : 'favorite_outlined' }}</mat-icon>
+    </div>
 
     <audio #audio *ngIf="video?.id" [volume]="0.2" (ended)="nextVideo()"
-      class="w-full max-w-md h-10 mb-4" autoplay controls preload="metadata"
+      class="w-full max-w-md h-10" autoplay controls preload="metadata"
       [src]="'/api/stream/v2/' + video?.id"></audio>
+
+    <ngx-skeleton-loader *ngIf="!video?.id" class="block h-[40px]"  [theme]="{ width: '448px', height: '40px', 'border-radius': '20px', 'margin-bottom': 0 }"></ngx-skeleton-loader>
   </div>
 </div>

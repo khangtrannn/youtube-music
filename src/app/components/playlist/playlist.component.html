@@ -8,7 +8,7 @@
     </ng-container>
 
     <ng-container *ngIf="data.favorites as favorites">
-      <app-video-card (click)="playingVideo = video; data.playingIndex = i" [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" [video]="video"></app-video-card>
+      <app-video-card (click)="playingVideo = video; data.playingIndex = i; backgroundService.setBackground(video.thumbnail)" [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" [video]="video"></app-video-card>
     </ng-container>
   </div>
 </ng-container>

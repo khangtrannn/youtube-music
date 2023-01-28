@@ -1,4 +1,9 @@
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { NgSwitcheryModule } from 'angular-switchery-ios';
+import {
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule,
+} from '@abacritt/angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, Injector, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -51,6 +56,7 @@ import { VideoListComponent } from './components/video-list/video-list.component
     NgxSkeletonLoaderModule,
     SocialLoginModule,
     MatMenuModule,
+    NgSwitcheryModule,
     NgxSkeletonLoaderModule.forRoot({ animation: 'progress-dark' }),
   ],
   providers: [
