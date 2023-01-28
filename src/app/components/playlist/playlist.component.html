@@ -1,4 +1,4 @@
-<!-- <app-music-player class="block mb-8" [video]="playingVideo"></app-music-player> -->
+<app-music-player *ngIf="playingVideo" [@panelInOut] class="block mb-8" [video]="playingVideo"></app-music-player>
 
 <div class="video-list overflow-scroll custom-scroll">
   <ng-container *ngIf="isLoading">
@@ -6,6 +6,6 @@
   </ng-container>
 
   <ng-container *ngIf="!isLoading">
-    <app-video-card [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" [video]="video"></app-video-card>
+    <app-video-card (click)="playingVideo = video" [@simpleFadeAnimation] *ngFor="let video of favorites; let i = index" [video]="video"></app-video-card>
   </ng-container>
 </div>

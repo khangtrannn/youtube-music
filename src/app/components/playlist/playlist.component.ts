@@ -4,6 +4,7 @@ import { VideoService } from 'src/app/services/video.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Video } from 'src/app/models/video';
 import { trigger, style, transition, animate } from '@angular/animations';
+import { panelInOut } from 'src/app/share/animations/panelAnimation';
 
 @Component({
   selector: 'app-playlist',
@@ -11,6 +12,7 @@ import { trigger, style, transition, animate } from '@angular/animations';
   styleUrls: ['./playlist.component.scss'],
   providers: [VideoService],
   animations: [
+    panelInOut,
     trigger('simpleFadeAnimation', [
       transition(':enter', [style({ opacity: 0 }), animate(400)]),
       transition(
