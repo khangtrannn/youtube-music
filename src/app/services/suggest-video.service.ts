@@ -13,6 +13,7 @@ export class SuggestVideoService {
   private isMore = true;
 
   private suggestVideos: Video[] = [];
+  private suggestVideos$ = new ReplaySubject<Video[]>(1);
 
   constructor(private http: HttpClient) {}
 
@@ -24,8 +25,13 @@ export class SuggestVideoService {
           this.visitorData = response.visitorData;
           this.continuation = response.continuation;
           this.suggestVideos = response.videos;
+          this.suggestVideos$.next(this.suggestVideos);
         })
       );
+  }
+
+  getSuggestions(): Observable<Video[]> {
+    return this.suggestVideos$.asObservable();
   }
 
   getSuggestVideosContinuation(): Observable<Video[]> {

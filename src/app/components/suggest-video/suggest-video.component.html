@@ -1,1 +1,1 @@
-<!-- <app-video-list [videos]="videos" (onLoadMore)="loadMore()"></app-video-list> -->
+<app-video-list [getInItVideos]="getInitVideos.bind(this)" [getMoreVideos]="getMoreVideos.bind(this)"></app-video-list>

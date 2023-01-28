@@ -27,10 +27,7 @@ export class MusicComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params
       .pipe(takeUntil(this.onDestroy$))
-      .subscribe((params) => {
-        this.getVideoDetail(params['id']);
-        this.getSuggestVideo(params['id']);
-      });
+      .subscribe((params) => this.getVideoDetail(params['id']));
   }
 
   getVideoDetail(id: string): void {
@@ -41,13 +38,6 @@ export class MusicComponent implements OnInit {
         this.videoDetail = videoDetail;
         this.backgroundService.setBackground(videoDetail.thumbnail);
       });
-  }
-
-  getSuggestVideo(id: string): void {
-    this.suggestVideoService
-      .initData(id)
-      .pipe(takeUntil(this.onDestroy$))
-      .subscribe();
   }
 
   onNextVideo(): void {

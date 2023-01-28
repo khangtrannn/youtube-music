@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { Video } from 'src/app/models/video';
+import { VideoService } from 'src/app/services/video.service';
 import { SuggestVideoService } from './../../services/suggest-video.service';
 
 @Component({
@@ -8,33 +10,37 @@ import { SuggestVideoService } from './../../services/suggest-video.service';
   templateUrl: './suggest-video.component.html',
   styleUrls: ['./suggest-video.component.scss'],
 })
-export class SuggestVideoComponent implements OnInit {
+export class SuggestVideoComponent {
   private onDestroy$ = new Subject<void>();
-  videos: Video[] = [];
-  isVideoLoading = true;
+  videoDetail: Video | undefined;
 
-  constructor(private suggestVideoService: SuggestVideoService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private suggestVideoService: SuggestVideoService
+  ) {}
 
-  ngOnInit(): void {
-    // this.suggestVideoService
-    //   .getSuggestion()
-    //   .pipe(takeUntil(this.onDestroy$))
-    //   .subscribe((videos) => {
-    //     this.isVideoLoading = false;
-    //     this.videos = videos;
-    //   });
+  ngOnInit() {
+    this.activatedRoute.params
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((params) => this.getSuggestVideo(params['id']));
   }
 
-  loadMore(): void {
-    this.isVideoLoading = true;
-    if (this.suggestVideoService.hasMoreSuggestion()) {
-      this.suggestVideoService
-        .getSuggestVideosContinuation()
-        .pipe(takeUntil(this.onDestroy$))
-        .subscribe((videos) => {
-          this.isVideoLoading = false;
-          this.videos.push(...videos);
-        });
-    }
+  getSuggestVideo(id: string): void {
+    this.suggestVideoService
+      .initData(id)
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe();
+  }
+
+  getInitVideos(): Observable<Video[]> {
+    return this.suggestVideoService.getSuggestions();
+  }
+
+  getMoreVideos(): Observable<Video[]> {
+    // if (this.suggestVideoService.hasMoreSuggestion()) {
+    //   return this.suggestVideoService.getSuggestVideosContinuation();
+    // }
+
+    return of();
   }
 }
