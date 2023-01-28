@@ -1,10 +1,12 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
+  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -26,6 +28,8 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   onToggleFavorite$ = new Subject<boolean>();
 
   @Input() video: Video | undefined;
+  @Output() onNextVideo = new EventEmitter<void>();
+
   @ViewChild('audio') audio!: ElementRef<HTMLAudioElement>;
 
   isFavorite = false;
@@ -35,7 +39,6 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
     private userService: UserService,
     private suggestVideoService: SuggestVideoService,
     private router: Router,
-    private videoService: VideoService,
     private favoriteService: FavoriteService
   ) {}
 
@@ -63,8 +66,7 @@ export class MusicPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   nextVideo(): void {
-    const suggestVideo = this.suggestVideoService.getNextVideo();
-    this.router.navigate([`/music/${suggestVideo.id}`]);
+    this.onNextVideo.emit();
   }
 
   ngOnDestroy(): void {

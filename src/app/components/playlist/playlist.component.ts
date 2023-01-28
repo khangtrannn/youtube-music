@@ -28,30 +28,11 @@ import { panelInOut } from 'src/app/share/animations/panelAnimation';
     ]),
   ],
 })
-export class PlaylistComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-
-  playingVideo: Video | undefined;
-  favorites: Video[] = [];
-  isLoading = true;
+export class PlaylistComponent {
+  playingVideo!: Video;
 
   constructor(
     public videoService: VideoService,
-    private favoriteService: FavoriteService
+    public favoriteService: FavoriteService
   ) {}
-
-  ngOnInit(): void {
-    this.favoriteService
-      .getAllFavorites()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((favorites) => {
-        this.isLoading = false;
-        this.favorites = favorites;
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }

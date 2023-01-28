@@ -10,7 +10,7 @@ import { VideoService } from 'src/app/services/video.service';
   selector: 'app-music',
   templateUrl: './music.component.html',
   styleUrls: ['./music.component.scss'],
-  providers: [VideoService]
+  providers: [VideoService],
 })
 export class MusicComponent implements OnInit {
   private onDestroy$ = new Subject<void>();
@@ -21,7 +21,7 @@ export class MusicComponent implements OnInit {
     private videoService: VideoService,
     private suggestVideoService: SuggestVideoService,
     private backgroundService: BackgroundService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -34,7 +34,8 @@ export class MusicComponent implements OnInit {
   }
 
   getVideoDetail(id: string): void {
-    this.videoService.getVideoDetail(id)
+    this.videoService
+      .getVideoDetail(id)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((videoDetail) => {
         this.videoDetail = videoDetail;
@@ -43,8 +44,14 @@ export class MusicComponent implements OnInit {
   }
 
   getSuggestVideo(id: string): void {
-    this.suggestVideoService.initData(id)
+    this.suggestVideoService
+      .initData(id)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe();
+  }
+
+  onNextVideo(): void {
+    const suggestVideo = this.suggestVideoService.getNextVideo();
+    this.router.navigate([`/music/${suggestVideo.id}`]);
   }
 }
